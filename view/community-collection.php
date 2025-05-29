@@ -1,3 +1,4 @@
+<?php include_once("../controller/controller.php");?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,10 +53,18 @@
         </div>
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
+            <?php
+                $result = showAllBooks();
+                foreach($result as $booksData){
+            ?>
+                    <a href="#"><img src="<?=$booksData['cover_image']?>"></a>
+            <?php
+                }
+            ?>
+            <!-- <img src="images/place-holder.svg" alt="" class="w-full">
             <img src="images/place-holder.svg" alt="" class="w-full">
             <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
+            <img src="images/place-holder.svg" alt="" class="w-full"> -->
         </div>
         <!-- Navigation -->
          <div class="flex items-center justify-center gap-[20px] w-full">
@@ -96,10 +105,10 @@
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
             <!-- atas -->
+            <!-- <img src="images/place-holder.svg" alt="" class="w-full">
             <img src="images/place-holder.svg" alt="" class="w-full">
             <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
+            <img src="images/place-holder.svg" alt="" class="w-full"> -->
         </div>
         <!-- Navigation -->
          <div class="flex items-center justify-center gap-[20px] w-full">
@@ -140,16 +149,16 @@
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
             <!-- atas -->
+            <!-- <img src="images/place-holder.svg" alt="" class="w-full">
             <img src="images/place-holder.svg" alt="" class="w-full">
             <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
+            <img src="images/place-holder.svg" alt="" class="w-full"> -->
 
             <!-- bawah -->
+            <!-- <img src="images/place-holder.svg" alt="" class="w-full">
             <img src="images/place-holder.svg" alt="" class="w-full">
             <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
+            <img src="images/place-holder.svg" alt="" class="w-full"> -->
         </div>
         <!-- Navigation -->
         <div class="flex flex-col sm:flex-row items-center justify-between gap-[20px] w-full">

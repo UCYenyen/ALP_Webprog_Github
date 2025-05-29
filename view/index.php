@@ -38,12 +38,12 @@
                             header("Location: personal-collection.php");
                             exit;
                         } else {
-                            $error = "Username atau password salah.";
+                            $error = "incorrect username or password.";
                         }
                     }
                 }
                 if (isset($error)) {
-                    echo '<div style="color:red;">' . htmlspecialchars($error) . '</div>';
+                    echo '<div style="color:red; background-color:pink; border-radius: 8px; padding: 4px; width: 100%; display: flex; justify-content: center; align-items: center;">' . htmlspecialchars($error) . '</div>';
                 }
                 ?>
                 

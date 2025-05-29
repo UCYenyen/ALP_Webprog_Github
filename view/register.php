@@ -1,4 +1,24 @@
 <?php include_once("../controller/controller.php");?>
+<?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (isset($_POST['username'], $_POST['password'])) {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            // loginUser returns an array with user data if successful, not a boolean
+            // Call a registerUser function (you need to implement this in your controller)
+            $result = registerUser($username, $password);
+            if ($result === true) {
+                header("Location: index.php?registered=1");
+                exit();
+            } else {
+                $error = $result; // Assume $result contains error message on failure
+            }
+        }
+    }
+    if (isset($error)) {
+        echo '<div style="color:red; background-color:pink; border-radius: 8px; padding: 4px; width: 100%; display: flex; justify-content: center; align-items: center;">' . htmlspecialchars($error) . '</div>';
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +29,7 @@
 </head>
 <body class="bg-gradient-to-b from-[#D4EAF5] to-[#F3F7FA] overflow-x-hidden">
     <div class="w-screen h-screen flex justify-center items-center">
-        <form action="text" method="POST">
+        <form action="" method="POST">
             <div class="flex flex-col items-center gap-[30px] justify-center p-6 bg-[#FBFBFD] shadow-md rounded-lg sm:w-[500px]">
                 <h1 class="text-[36px] font-bold bg-gradient-to-r from-[#042740] to-[#5283AB] bg-clip-text text-transparent">Bukuku</h1>
                 <div class="w-full flex flex-col gap-2">
