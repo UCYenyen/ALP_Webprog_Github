@@ -68,4 +68,34 @@ function getUserById($id){
         return $data;
     }
 }
+function loginUser($username , $password){
+    $data = array();
+    $conn = my_ConnectDB();
+    $sql_query = 'SELECT * FROM users WHERE username = ? AND password = ?';
+    $stmt = mysqli_prepare($conn, $sql_query);
+    mysqli_stmt_bind_param($stmt, 'ss', $username, $password);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    if($result-> num_rows > 0){
+        while($row = $result->fetch_assoc()){
+            // Simpan data dari db ke dalam array
+            $data['id'] = $row['id'];
+            $data['username'] = $row['username'];
+            $data['password'] = $row['password'];
+        }
+    }
+    mysqli_stmt_close($stmt);
+    my_closeDB($conn);
+    return $data;
+}
+function registerUser($username, $password){
+    $conn = my_ConnectDB();
+    $sql_query = 'INSERT INTO users (username, password) VALUES (?, ?)';
+    $stmt = mysqli_prepare($conn, $sql_query);
+    mysqli_stmt_bind_param($stmt, 'ss', $username, $password);
+    $result = mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    my_closeDB($conn);
+    return $result;
+}
 ?>
