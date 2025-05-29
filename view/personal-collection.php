@@ -1,10 +1,22 @@
-<?php include_once("../controller/controller.php");?>
+<?php 
+    session_start();
+    include_once("../controller/controller.php");
+    
+    // Redirect to login if not logged in
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: index.php");
+        exit;
+    }
+    
+    // Get the current user's ID
+    $user_id = $_SESSION['user_id'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bukuku</title>
+    <title>Bukuku - Personal Collection</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="flex flex-col gap-[30px] bg-gradient-to-b from-[#D4EAF5] to-[#F3F7FA] p-12">
@@ -23,7 +35,15 @@
                <div class="w-8 h-1 bg-black"></div>
                <div class="w-8 h-1 bg-black"></div>
             </div>
-            <div class="hidden md:block w-10 h-10 rounded-full bg-black"></div>
+            <div class="hidden md:block">
+                <?php if(isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])): ?>
+                    <a href="account.php">
+                        <img src="<?php echo htmlspecialchars($_SESSION['profile_image']); ?>" alt="Profile" class="w-10 h-10 rounded-full object-cover">
+                    </a>
+                <?php else: ?>
+                    <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
+                <?php endif; ?>
+            </div>
         </div>
     </nav>
 
@@ -53,21 +73,21 @@
         </div>
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
-            <!-- <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full"> -->
+            <?php
+                $favoriteBooks = getUserFavoriteBooks($user_id);
+                if (!empty($favoriteBooks)) {
+                    foreach($favoriteBooks as $book) {
+            ?>
+                <a href="bookPage.php?id=<?= htmlspecialchars($book['id']) ?>" class="w-full h-full">
+                    <img class="object-cover object-left w-full h-full" src="<?= htmlspecialchars($book['cover_image']) ?>">
+                </a>
+            <?php
+                    }
+                } else {
+                    echo '<p class="col-span-4 text-center text-gray-500 py-4">No favorite books yet.</p>';
+                }
+            ?>
         </div>
-        <!-- Navigation -->
-         <div class="flex items-center justify-center gap-[20px] w-full">
-            <button class="font-bold text-[20px]"> < </button>
-            <a href="" class="text-[20px]">1</a>
-            <a href="" class="text-[20px]">2</a>
-            <a href="" class="text-[20px]">3</a>
-            <a href="" class="text-[20px]">....</a>
-            <a href="" class="text-[20px]">5</a>
-            <button class="font-bold text-[20px]"> > </button>
-         </div>
     </div>
 
     <!-- Collections -->
@@ -96,28 +116,21 @@
         </div>
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
-            <!-- atas -->
-            <!-- <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full"> -->
-
-            <!-- bawah -->
-             <!-- <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full"> -->
+            <?php
+                $personalBooks = getUserPersonalCollection($user_id);
+                if (!empty($personalBooks)) {
+                    foreach($personalBooks as $book) {
+            ?>
+                <a href="bookPage.php?id=<?= htmlspecialchars($book['id']) ?>" class="w-full h-full">
+                    <img class="object-cover object-left w-full h-full" src="<?= htmlspecialchars($book['cover_image']) ?>">
+                </a>
+            <?php
+                    }
+                } else {
+                    echo '<p class="col-span-4 text-center text-gray-500 py-4">No books in your collection yet. Visit the community collection to add books!</p>';
+                }
+            ?>
         </div>
-        <!-- Navigation -->
-         <div class="flex items-center justify-center gap-[20px] w-full">
-            <button class="font-bold text-[20px]"> < </button>
-            <a href="" class="text-[20px]">1</a>
-            <a href="" class="text-[20px]">2</a>
-            <a href="" class="text-[20px]">3</a>
-            <a href="" class="text-[20px]">....</a>
-            <a href="" class="text-[20px]">5</a>
-            <button class="font-bold text-[20px]"> > </button>
-         </div>
     </div>
 </body>
 </html>

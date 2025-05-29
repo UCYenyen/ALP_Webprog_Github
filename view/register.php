@@ -1,4 +1,6 @@
-<?php include_once("../controller/controller.php");?>
+<?php
+    session_start();
+    include_once("../controller/controller.php");?>
 <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($_POST['username'], $_POST['password'])) {

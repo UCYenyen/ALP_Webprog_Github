@@ -1,4 +1,6 @@
-<?php include_once("../controller/controller.php");?>
+<?php 
+    session_start();
+    include_once("../controller/controller.php");?>
 <?php 
 // ini coba coba
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -67,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                <div class="w-8 h-1 bg-black"></div>
                <div class="w-8 h-1 bg-black"></div>
             </div>
-            <div class="hidden md:block w-10 h-10 rounded-full bg-black"></div>
+            <a href="account.php" class="hidden md:block w-10 h-10 rounded-full bg-black"></a>
         </div>
     </nav>
 

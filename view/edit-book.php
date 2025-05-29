@@ -1,4 +1,7 @@
-<?php include_once("../controller/controller.php");?>
+<?php 
+    session_start();
+    include_once("../controller/controller.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +26,15 @@
                <div class="w-8 h-1 bg-black"></div>
                <div class="w-8 h-1 bg-black"></div>
             </div>
-            <div class="hidden md:block w-10 h-10 rounded-full bg-black"></div>
+            <div class="hidden md:block">
+                <?php if(isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])): ?>
+                    <a href="account.php">
+                        <img src="<?php echo htmlspecialchars($_SESSION['profile_image']); ?>" alt="Profile" class="w-10 h-10 rounded-full object-cover">
+                    </a>
+                <?php else: ?>
+                    <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
+                <?php endif; ?>
+            </div>
         </div>
     </nav>
 

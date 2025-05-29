@@ -1,4 +1,7 @@
-<?php include_once("../controller/controller.php");?>
+<?php 
+    session_start();
+    include_once("../controller/controller.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,60 +26,17 @@
                <div class="w-8 h-1 bg-black"></div>
                <div class="w-8 h-1 bg-black"></div>
             </div>
-            <div class="hidden md:block w-10 h-10 rounded-full bg-black"></div>
+            <div class="hidden md:block">
+                <?php if(isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])): ?>
+                    <a href="account.php">
+                        <img src="<?php echo htmlspecialchars($_SESSION['profile_image']); ?>" alt="Profile" class="w-10 h-10 rounded-full object-cover">
+                    </a>
+                <?php else: ?>
+                    <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
+                <?php endif; ?>
+            </div>
         </div>
     </nav>
-
-    <!-- Main Content -->
-    <div class="flex flex-col bg-white shadow-md rounded-lg p-6 gap-[20px]">
-        <!-- TOP -->
-        <div class="flex flex-col sm:flex-row justify-between justify-left sm:items-center">
-            <h1 class="text-[32px] font-bold text-left">Latest Books</h1>
-            <form action="" method="get" class="mt-2 sm:mt-0 flex items-center gap-2 bg-[#EBF1F4]">
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <!-- Search Icon SVG -->
-                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <circle cx="11" cy="11" r="7" />
-                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                        </svg>
-                    </span>
-                    <input
-                        type="text"
-                        name="search"
-                        placeholder="Search books..."
-                        class="border border-gray-300 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
-                    >
-                </div>
-            </form>
-        </div>
-        <!-- BOOKS -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
-            <?php
-                $result = showAllBooks();
-                foreach($result as $booksData){
-            ?>
-                    <a href="#"><img src="<?=$booksData['cover_image']?>"></a>
-            <?php
-                }
-            ?>
-            <!-- <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full"> -->
-        </div>
-        <!-- Navigation -->
-         <div class="flex items-center justify-center gap-[20px] w-full">
-            <button class="font-bold text-[20px]"> < </button>
-            <a href="" class="text-[20px]">1</a>
-            <a href="" class="text-[20px]">2</a>
-            <a href="" class="text-[20px]">3</a>
-            <a href="" class="text-[20px]">....</a>
-            <a href="" class="text-[20px]">5</a>
-            <button class="font-bold text-[20px]"> > </button>
-         </div>
-    </div>
 
     <!-- Trending Books -->
     <div class="flex flex-col bg-white shadow-md rounded-lg p-6 gap-[20px]">
@@ -104,22 +64,17 @@
         </div>
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
-            <!-- atas -->
-            <!-- <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full"> -->
+            <?php
+                $result = showTrendingBooks();
+                foreach($result as $booksData){
+            ?>
+                <a href="bookPage.php?id=<?= htmlspecialchars($booksData['id']) ?>" class="w-full h-full">
+                    <img class="object-cover object-left w-full h-full" src="<?= htmlspecialchars($booksData['cover_image']) ?>">
+                </a>
+            <?php
+                }
+            ?>
         </div>
-        <!-- Navigation -->
-         <div class="flex items-center justify-center gap-[20px] w-full">
-            <button class="font-bold text-[20px]"> < </button>
-            <a href="" class="text-[20px]">1</a>
-            <a href="" class="text-[20px]">2</a>
-            <a href="" class="text-[20px]">3</a>
-            <a href="" class="text-[20px]">....</a>
-            <a href="" class="text-[20px]">5</a>
-            <button class="font-bold text-[20px]"> > </button>
-         </div>
     </div>
 
      <!-- Community Collections -->
@@ -148,17 +103,16 @@
         </div>
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
-            <!-- atas -->
-            <!-- <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full"> -->
-
-            <!-- bawah -->
-            <!-- <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full">
-            <img src="images/place-holder.svg" alt="" class="w-full"> -->
+            <?php
+                $result = showAllBooks();
+                foreach($result as $booksData){
+            ?>
+                <a href="bookPage.php?id=<?= htmlspecialchars($booksData['id']) ?>" class="w-full h-full">
+                    <img class="object-cover object-left w-full h-full" src="<?= htmlspecialchars($booksData['cover_image']) ?>">
+                </a>
+            <?php
+                }
+            ?>
         </div>
         <!-- Navigation -->
         <div class="flex flex-col sm:flex-row items-center justify-between gap-[20px] w-full">

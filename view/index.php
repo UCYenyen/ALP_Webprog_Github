@@ -1,4 +1,12 @@
-<?php include_once("../controller/controller.php");?>
+<?php 
+    session_start();
+    include_once("../controller/controller.php");
+    if (isset($_SESSION['user_id'])) {
+        // User is already logged in, redirect to personal collection
+        header("Location: personal-collection.php");
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,6 +43,8 @@
                             // You could also set session data here if needed
                             // $_SESSION['user_id'] = $loginResult['id'];
                             // $_SESSION['username'] = $loginResult['username'];
+                            $_SESSION['user_id'] = $loginResult['id'];
+                            $_SESSION['username'] = $loginResult['username'];
                             header("Location: personal-collection.php");
                             exit;
                         } else {
