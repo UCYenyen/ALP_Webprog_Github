@@ -6,7 +6,22 @@
         header("Location: personal-collection.php");
         exit;
     }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $loginResult = loginUser($username, $password);
+        if (!empty($loginResult)) {
+            $_SESSION['user_id'] = $loginResult['id'];
+            $_SESSION['username'] = $loginResult['username'];
+            header("Location: personal-collection.php");
+            exit;
+        } else {
+            $error = "incorrect username or password.";
+        }
+    }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,41 +37,20 @@
                 <h1 class="text-[36px] font-bold bg-gradient-to-r from-[#042740] to-[#5283AB] bg-clip-text text-transparent">Bukuku</h1>
                 <div class="w-full flex flex-col gap-2">
                     <p class="font-bold text-[16px]">Username</p>
-                    <input type="text" name="username" placeholder="Username" class="w-full bg-[#EBF1F4] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="text" name="username" placeholder="Username" required class="w-full bg-[#EBF1F4] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="w-full flex flex-col gap-2">
                     <p class="font-bold text-[16px]">Password</p>
-                    <input type="password" name="password" placeholder="Password" class="w-full bg-[#EBF1F4] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="password" name="password" placeholder="Password" required class="w-full bg-[#EBF1F4] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <button type="submit" class="w-full bg-[#0071E3] text-white p-2 rounded-lg hover:bg-blue-700 transition duration-200">Login</button>
                 
                 <?php
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    if (isset($_POST['username'], $_POST['password'])) {
-                        $username = $_POST['username'];
-                        $password = $_POST['password'];
-                        // loginUser returns an array with user data if successful, not a boolean
-                        $loginResult = loginUser($username, $password);
-                        if (!empty($loginResult)) {
-                            // User found, credentials are valid
-                            // You could also set session data here if needed
-                            // $_SESSION['user_id'] = $loginResult['id'];
-                            // $_SESSION['username'] = $loginResult['username'];
-                            $_SESSION['user_id'] = $loginResult['id'];
-                            $_SESSION['username'] = $loginResult['username'];
-                            header("Location: personal-collection.php");
-                            exit;
-                        } else {
-                            $error = "incorrect username or password.";
-                        }
-                    }
-                }
                 if (isset($error)) {
                     echo '<div style="color:red; background-color:pink; border-radius: 8px; padding: 4px; width: 100%; display: flex; justify-content: center; align-items: center;">' . htmlspecialchars($error) . '</div>';
                 }
                 ?>
-                
                 <p class="text-gray-600">Don't have an account? <a href="register.php" class="text-[#0071e3] hover:underline">Register here</a></p>
             </div>
         </form>

@@ -10,13 +10,25 @@
     
     // Get the current user's ID
     $user_id = $_SESSION['user_id'];
+
+    $allOwnedBooks = getPersonalBooks($user_id);
+    $searchedBook;
+    $isSearching = false;
+
+    if(!empty($_GET['search'])) {
+        $searchTitle = $_GET['search'];
+        $searchedBook = searchBook($searchTitle);
+        $isSearching = true;
+    } else {
+        
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bukuku - Personal Collection</title>
+    <title>Bryan Fernando - Obie Zuriel</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="flex flex-col gap-[30px] bg-gradient-to-b from-[#D4EAF5] to-[#F3F7FA] p-12">
@@ -36,13 +48,7 @@
                <div class="w-8 h-1 bg-black"></div>
             </div>
             <div class="hidden md:block">
-                <?php if(isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])): ?>
-                    <a href="account.php">
-                        <img src="<?php echo htmlspecialchars($_SESSION['profile_image']); ?>" alt="Profile" class="w-10 h-10 rounded-full object-cover">
-                    </a>
-                <?php else: ?>
-                    <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
-                <?php endif; ?>
+                <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
             </div>
         </div>
     </nav>
@@ -66,26 +72,23 @@
                         name="search"
                         placeholder="Search books..."
                         class="border border-gray-300 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
+                        value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>"
+                        oninput="this.value ? displaySearchedBook() : resetBookDisplay();"
                     >
                 </div>
             </form>
         </div>
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
-            <?php
-                $favoriteBooks = getUserFavoriteBooks($user_id);
-                if (!empty($favoriteBooks)) {
-                    foreach($favoriteBooks as $book) {
+            <?php 
+            foreach($allOwnedBooks as $book){
+                $coverImage = $book['cover_image'];
             ?>
-                <a href="bookPage.php?id=<?= htmlspecialchars($book['id']) ?>" class="w-full h-full">
-                    <img class="object-cover object-left w-full h-full" src="<?= htmlspecialchars($book['cover_image']) ?>">
+                <a href="#" class="w-full h-full" id="book_<?=$book['id']?>">
+                    <img class="book object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
                 </a>
-            <?php
-                    }
-                } else {
-                    echo '<p class="col-span-4 text-center text-gray-500 py-4">No favorite books yet.</p>';
-                }
+            <?php 
+            }
             ?>
         </div>
     </div>
@@ -116,21 +119,29 @@
         </div>
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
-            <?php
-                $personalBooks = getUserPersonalCollection($user_id);
-                if (!empty($personalBooks)) {
-                    foreach($personalBooks as $book) {
-            ?>
-                <a href="bookPage.php?id=<?= htmlspecialchars($book['id']) ?>" class="w-full h-full">
-                    <img class="object-cover object-left w-full h-full" src="<?= htmlspecialchars($book['cover_image']) ?>">
-                </a>
-            <?php
-                    }
-                } else {
-                    echo '<p class="col-span-4 text-center text-gray-500 py-4">No books in your collection yet. Visit the community collection to add books!</p>';
-                }
-            ?>
+            <a href="bookPage.php?id=<?= htmlspecialchars($book['id']) ?>" class="w-full h-full">
+                <img class="object-cover object-left w-full h-full" src="<?= htmlspecialchars($book['cover_image']) ?>">
+            </a>
         </div>
     </div>
+
+    <script>
+        function displaySearchedBook(){
+            const books = document.querySelectorAll('.book');
+            books.forEach(book => {
+                book.classList.add('hidden');
+            });
+
+            const searchedBook = document.getElementById("book_" + <?= $book['id']?>);
+            
+            searchedBook.classList.remove('hidden');
+        }
+        function resetBookDisplay() {
+            const books = document.querySelectorAll('.book');
+            books.forEach(book => {
+                book.classList.remove('hidden');
+            });
+        }
+    </script>
 </body>
 </html>

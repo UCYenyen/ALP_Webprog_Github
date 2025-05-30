@@ -1,24 +1,16 @@
 <?php
-    session_start();
-    include_once("../controller/controller.php");?>
-<?php
+    include_once("../controller/controller.php");
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['username'], $_POST['password'])) {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-            // loginUser returns an array with user data if successful, not a boolean
-            // Call a registerUser function (you need to implement this in your controller)
-            $result = registerUser($username, $password);
-            if ($result === true) {
-                header("Location: index.php?registered=1");
-                exit();
-            } else {
-                $error = $result; // Assume $result contains error message on failure
-            }
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $result = registerUser($username, $password);
+        if ($result) {
+            header("Location: index.php");
+            exit();
+        } else {
+            $error = $result; 
         }
-    }
-    if (isset($error)) {
-        echo '<div style="color:red; background-color:pink; border-radius: 8px; padding: 4px; width: 100%; display: flex; justify-content: center; align-items: center;">' . htmlspecialchars($error) . '</div>';
     }
 ?>
 <!DOCTYPE html>
@@ -36,13 +28,18 @@
                 <h1 class="text-[36px] font-bold bg-gradient-to-r from-[#042740] to-[#5283AB] bg-clip-text text-transparent">Bukuku</h1>
                 <div class="w-full flex flex-col gap-2">
                     <p class="font-bold text-[16px]">Username</p>
-                    <input type="text" name="username" placeholder="Username" class="w-full bg-[#EBF1F4] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="text" name="username" placeholder="Username" required class="w-full bg-[#EBF1F4] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div class="w-full flex flex-col gap-2">
                     <p class="font-bold text-[16px]">Password</p>
-                    <input type="password" name="password" placeholder="Password" class="w-full bg-[#EBF1F4] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <input type="password" name="password" placeholder="Password" required class="w-full bg-[#EBF1F4] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <button type="submit" class="w-full bg-[#0071E3] text-white p-2 rounded-lg hover:bg-blue-700 transition duration-200">Register</button>
+                <?php
+                if (isset($error)) {
+                    echo '<div style="color:red; background-color:pink; border-radius: 8px; padding: 4px; width: 100%; display: flex; justify-content: center; align-items: center;">' . "Username already exists!" . '</div>';
+                }
+                ?>
                 <p class="text-gray-600">Already have an account? <a href="index.php" class="text-[#0071e3] hover:underline">Login here</a></p>
             </div>
         </form>

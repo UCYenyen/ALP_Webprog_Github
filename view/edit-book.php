@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bukuku</title>
+    <title>Bryan Fernando - Obie Zuriel</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="flex flex-col gap-[30px] bg-gradient-to-b from-[#D4EAF5] to-[#F3F7FA] p-12 overflow-x-hidden">
@@ -27,13 +27,7 @@
                <div class="w-8 h-1 bg-black"></div>
             </div>
             <div class="hidden md:block">
-                <?php if(isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])): ?>
-                    <a href="account.php">
-                        <img src="<?php echo htmlspecialchars($_SESSION['profile_image']); ?>" alt="Profile" class="w-10 h-10 rounded-full object-cover">
-                    </a>
-                <?php else: ?>
-                    <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
-                <?php endif; ?>
+                <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
             </div>
         </div>
     </nav>

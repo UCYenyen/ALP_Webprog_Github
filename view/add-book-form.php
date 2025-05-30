@@ -1,56 +1,13 @@
 <?php 
     session_start();
-    include_once("../controller/controller.php");?>
-<?php 
-// ini coba coba
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Collect form data
-    $title = $_POST['title'];
-    $author = $_POST['author'];
-    $genre = $_POST['genre'];
-    $year_published = $_POST['year_published'];
-    $description = $_POST['description'];
-    $link = $_POST['link'];
-    $cover_image = '';
-
-    if(isset($_FILES['cover']) && $_FILES['cover']['error'] == 0) {
-        $target_dir = "uploads/";
-        if(!is_dir($target_dir)) {
-            mkdir($target_dir, 0777, true);
-        }
-        $target_file = $target_dir . $_FILES["cover"]["name"];
-        if(move_uploaded_file($_FILES["cover"]["tmp_name"], $target_file)) {
-            $cover_image = $target_file;
-        } else {
-            $error = "Failed to upload file.";
-        }
-    }
-    
-    // Only proceed if no errors occurred
-    if(!isset($error)) {
-        // Set default owner_id (should be from session)
-        $owner_id = 1;
-        
-        // Use createBook function to add book to database
-        $result = createBook($title, $author, $genre, $year_published, $cover_image, $description, $link, 0, $owner_id);
-        
-        if($result) {
-            // If successful, redirect to personal collection
-            header("Location: personal-collection.php");
-            exit;
-        } else {
-            $error = "Failed to add book to database.";
-        }
-    }
-    //ini end dari functonnya
-}
+    include_once("../controller/controller.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bukuku</title>
+    <title>Bryan Fernando - Obie Zuriel</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="flex flex-col gap-[30px] bg-gradient-to-b from-[#D4EAF5] to-[#F3F7FA] p-12 overflow-x-hidden">
@@ -72,12 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a href="account.php" class="hidden md:block w-10 h-10 rounded-full bg-black"></a>
         </div>
     </nav>
-
-    <?php if(isset($error)): ?>
-    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-        <?php echo htmlspecialchars($error); ?>
-    </div>
-    <?php endif; ?>
 
     <form action="" method="POST" enctype="multipart/form-data">
         <div class="flex flex-col items-center gap-[30px] justify-center p-6 bg-[#FBFBFD] shadow-md rounded-lg">

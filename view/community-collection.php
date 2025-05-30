@@ -1,13 +1,15 @@
 <?php 
     session_start();
     include_once("../controller/controller.php");
+    $allBooks = getAllBook();
+    $trendingBooks = getTrendingBooks();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bukuku</title>
+    <title>Bryan Fernando - Obie Zuriel</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="flex flex-col gap-[30px] bg-gradient-to-b from-[#D4EAF5] to-[#F3F7FA] p-12">
@@ -27,13 +29,7 @@
                <div class="w-8 h-1 bg-black"></div>
             </div>
             <div class="hidden md:block">
-                <?php if(isset($_SESSION['profile_image']) && !empty($_SESSION['profile_image'])): ?>
-                    <a href="account.php">
-                        <img src="<?php echo htmlspecialchars($_SESSION['profile_image']); ?>" alt="Profile" class="w-10 h-10 rounded-full object-cover">
-                    </a>
-                <?php else: ?>
-                    <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
-                <?php endif; ?>
+                <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
             </div>
         </div>
     </nav>
@@ -64,15 +60,15 @@
         </div>
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
-            <?php
-                $result = showTrendingBooks();
-                foreach($result as $booksData){
+            <?php 
+            foreach($trendingBooks as $book){
+                $coverImage = $book['cover_image'];
             ?>
-                <a href="bookPage.php?id=<?= htmlspecialchars($booksData['id']) ?>" class="w-full h-full">
-                    <img class="object-cover object-left w-full h-full" src="<?= htmlspecialchars($booksData['cover_image']) ?>">
+                <a href="#" class="w-full h-full">
+                    <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
                 </a>
-            <?php
-                }
+            <?php 
+            }
             ?>
         </div>
     </div>
@@ -103,15 +99,15 @@
         </div>
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
-            <?php
-                $result = showAllBooks();
-                foreach($result as $booksData){
+            <?php 
+            foreach($allBooks as $book){
+                $coverImage = $book['cover_image'];
             ?>
-                <a href="bookPage.php?id=<?= htmlspecialchars($booksData['id']) ?>" class="w-full h-full">
-                    <img class="object-cover object-left w-full h-full" src="<?= htmlspecialchars($booksData['cover_image']) ?>">
+                <a href="#" class="w-full h-full">
+                    <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
                 </a>
-            <?php
-                }
+            <?php 
+            }
             ?>
         </div>
         <!-- Navigation -->
