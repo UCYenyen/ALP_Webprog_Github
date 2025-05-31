@@ -1,6 +1,8 @@
 <?php 
     session_start();
     include_once("../controller/controller.php");
+
+    $bookDetails = getBookById($_SESSION['book_id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +40,7 @@
             <!-- Book Cover Image -->
             <div class="w-full md:w-1/4">
                 <img 
-                    src=""  
+                    src="<?php echo $bookDetails['cover_image']; ?>"  
                     class="w-full h-auto object-cover rounded-md shadow-md"
                 >
             </div>
@@ -47,21 +49,45 @@
             <div class="w-full h-full md:w-3/4">
                 <h1 class="text-[32px] font-bold mb-2">Title</h1>
                 <div class="flex flex-col gap-2">
-                    <p class="text-lg"><strong>Author:</strong> Banana</p>
-                    <p class="text-lg"><strong>Genre:</strong> Sex</p>
-                    <p class="text-lg"><strong>Year published:</strong> 2024</p>
+                    <p class="text-lg"><strong>Author:</strong> <?php echo"$bookDetails[author]"?></p>
+                    <p class="text-lg"><strong>Genre:</strong> <?php echo"$bookDetails[genre]"?></p>
+                    <p class="text-lg"><strong>Year published:</strong> <?php echo"$bookDetails[year_published]"?></p>
                 </div>
-                <p class="mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti dolore numquam aliquid harum, cumque sed. Quisquam, saepe. Cum possimus ipsum placeat eaque sequi corrupti eligendi, quisquam provident a! Ducimus, id. ?></p>
+                <p class="mt-4"><?php echo"$bookDetails[description]"?></p>
                 <a href="#" class="text-blue-500 hover:underline mt-2 inline-block" id="read-more">Read more</a>
                 
                 <!-- Action Buttons -->
                 <div class="flex justify-end gap-4 absolute bottom-1 right-1">
+                    <?php if(!checkIfBookAlreadyOwned($bookDetails['id'], $_SESSION['user_id'])){?>
                     <button type="submit" class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                         </svg>
                         Get
                     </button>
+                    <?php } else { ?>
+                    <button type="submit" class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        Read
+                    </button>
+                    <?php } ?>
+                    <?php if($bookDetails['owner_id'] == $_SESSION['user_id']){?>
+                    <button type="submit" class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        Edit
+                    </button>
+
+                    <button type="submit" class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        Delete
+                    </button>
+                    <?php }?>
                 </div>
             </div>
         </div>

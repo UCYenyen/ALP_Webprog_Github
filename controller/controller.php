@@ -52,6 +52,7 @@ function getPersonalBooks($user_id){
                 $data['book_id'] = $row['book_id'];
                 $data['user_id'] = $row['user_id'];
                 $data['is_favorite'] = $row['is_favorite'];
+
                 $ownedBooks = getBookById($row['book_id']);
                 $data['cover_image'] = $ownedBooks['cover_image'];
                 array_push($allData, $data);
@@ -59,6 +60,15 @@ function getPersonalBooks($user_id){
         }
     }
     return $allData;
+}
+
+function checkIfBookAlreadyOwned($book_id, $user_id) {
+    $conn = my_ConnectDB();
+    $sql_query = "SELECT * FROM personal_collections WHERE book_id = '$book_id' AND user_id = '$user_id'";
+    $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+    $exists = $result->num_rows > 0;
+    my_closeDB($conn);
+    return $exists;
 }
 
 function getBookById($book_id){
@@ -71,6 +81,9 @@ function getBookById($book_id){
             while ($row = $result->fetch_assoc()) {
                 $data['id'] = $row['id'];
                 $data['title'] = $row['title'];
+                $data['genre'] = $row['genre'];
+                $data['year_published'] = $row['year_published'];
+                $data['owner_id'] = $row['owner_id'];
                 $data['author'] = $row['author'];
                 $data['description'] = $row['description'];
                 $data['cover_image'] = $row['cover_image'];
@@ -171,5 +184,15 @@ function registerUser($username, $password){
     $result = mysqli_query($conn, $sql_query);
     my_closeDB($conn);
     return $result; 
+}
+function openBookPage($book_id) {
+    header("Location: book-page.php");
+    $_SESSION['book_id'] = $book_id;
+    exit();
+}
+function openBookPagePersonal($book_id) {
+    header("Location: book-page-personal.php");
+    $_SESSION['book_id'] = $book_id;
+    exit();
 }
 ?>

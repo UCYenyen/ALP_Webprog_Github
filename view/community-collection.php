@@ -3,6 +3,10 @@
     include_once("../controller/controller.php");
     $allBooks = getAllBook();
     $trendingBooks = getTrendingBooks();
+
+    if (isset($_GET['action']) && $_GET['action'] == 'book-page') {
+        openBookPage($_GET['id']);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,8 +67,9 @@
             <?php 
             foreach($trendingBooks as $book){
                 $coverImage = $book['cover_image'];
+                $bookId = $book['id']; // Make sure to get the book ID
             ?>
-                <a href="#" class="w-full h-full">
+                <a href="?action=book-page&id=<?= $bookId ?>" class="w-full h-full">
                     <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
                 </a>
             <?php 
@@ -102,8 +107,9 @@
             <?php 
             foreach($allBooks as $book){
                 $coverImage = $book['cover_image'];
+                $bookId = $book['id'];
             ?>
-                <a href="#" class="w-full h-full">
+                <a href="?action=book-page&id=<?= $bookId ?>" class="w-full h-full">
                     <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
                 </a>
             <?php 

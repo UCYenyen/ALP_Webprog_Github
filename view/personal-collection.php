@@ -19,8 +19,10 @@
         $searchTitle = $_GET['search'];
         $searchedBook = searchBook($searchTitle);
         $isSearching = true;
-    } else {
-        
+    }
+
+    if (isset($_GET['action']) && $_GET['action'] == 'book-page-personal') {
+        openBookPagePersonal($_GET['id']);
     }
 ?>
 <!DOCTYPE html>
@@ -82,12 +84,13 @@
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
             <?php 
             foreach($allOwnedBooks as $book){
-                $coverImage = $book['cover_image'];
+                if($book['is_favorite']){
             ?>
-                <a href="#" class="w-full h-full" id="book_<?=$book['id']?>">
-                    <img class="book object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
+                <a href="?action=book-page-personal&id=<?=$book['book_id']?>" class="w-full h-full" id="book_<?=$book['id']?>">
+                    <img class="book object-cover object-left w-full h-full rounded-lg" src="<?=$book['cover_image']?>">
                 </a>
             <?php 
+                }
             }
             ?>
         </div>
@@ -119,9 +122,15 @@
         </div>
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
-            <a href="bookPage.php?id=<?= htmlspecialchars($book['id']) ?>" class="w-full h-full">
-                <img class="object-cover object-left w-full h-full" src="<?= htmlspecialchars($book['cover_image']) ?>">
+            <?php 
+            foreach($allOwnedBooks as $book){
+            ?>
+            <a href="?action=book-page-personal&id=<?=$book['book_id']?>" class="w-full h-full">
+                <img class="object-cover object-left w-full h-full" src="<?=$book['cover_image']?>" id="book_<?= $book['id'] ?>">
             </a>
+            <?php 
+            }
+            ?>
         </div>
     </div>
 
