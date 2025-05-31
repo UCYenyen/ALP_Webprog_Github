@@ -68,7 +68,7 @@
                 <p class="font-bold text-[16px]">Cover</p>
                 <label class="bg-[#EBF1F4] w-[6.5rem] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer text-left">
                     Choose File
-                    <input type="file" name="cover" class="hidden">
+                    <input type="file" name="cover" required class="hidden">
                 </label>
             </div>
             <button type="submit" class="w-fill px-16 bg-[#0071E3] text-white p-2 rounded-lg hover:bg-blue-700 transition duration-200">Save</button>

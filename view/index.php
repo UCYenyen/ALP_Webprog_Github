@@ -15,9 +15,9 @@
             $_SESSION['user_id'] = $loginResult['id'];
             $_SESSION['username'] = $loginResult['username'];
             header("Location: personal-collection.php");
-            exit;
+            exit();
         } else {
-            $error = "incorrect username or password.";
+            $error = "Incorrect username or password.";
         }
     }
 ?>

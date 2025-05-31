@@ -59,7 +59,6 @@
                     <p class="text-lg"><strong>Year published:</strong> <?= $bookDetails["year_published"] ?></p>
                 </div>
                 <p class="mt-4 text-justify"><?= $bookDetails["description"]?></p>
-                <a href="#" class="text-blue-500 hover:underline mt-2 inline-block" id="read-more">Read more</a>
                 
                 <!-- Action Buttons -->
                 <div class="flex justify-end gap-4 absolute bottom-1 right-1">
@@ -68,7 +67,6 @@
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V19C21 20.11 20.11 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 3.9 3.9 3 5 3ZM8 17H16V15H8V17ZM16 10H13.5V7H10.5V10H8L12 14L16 10Z" fill="#FBFBFB"/>
                         </svg>
-
                         Get
                     </button>
                     <?php } else { ?>

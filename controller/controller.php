@@ -1,5 +1,4 @@
 <?php
-
 function my_ConnectDB(){
     $host = "localhost";
     $username = "root"; 
@@ -76,6 +75,7 @@ function getPersonalBooks($user_id){
             }
         }
     }
+    my_closeDB($conn);
     return $allData;
 }
 
@@ -90,13 +90,18 @@ function getAllBook(){
                 $data['id'] = $row['id'];
                 $data['title'] = $row['title'];
                 $data['author'] = $row['author'];
-                $data['description'] = $row['description'];
+                $data['genre'] = $row['genre'];
+                $data['year_published'] = $row['year_published'];
                 $data['cover_image'] = $row['cover_image'];
+                $data['description'] = $row['description'];
+                $data['link'] = $row['link'];
+                $data['popularity_counter'] = $row['popularity_counter'];
+                $data['owner_id'] = $row['owner_id'];
                 array_push($allData, $data);
             }
         }
     }
-
+    my_closeDB($conn);
     return $allData;
 }
 
@@ -110,12 +115,14 @@ function getBookById($book_id){
             while ($row = $result->fetch_assoc()) {
                 $data['id'] = $row['id'];
                 $data['title'] = $row['title'];
+                $data['author'] = $row['author'];
                 $data['genre'] = $row['genre'];
                 $data['year_published'] = $row['year_published'];
-                $data['owner_id'] = $row['owner_id'];
-                $data['author'] = $row['author'];
-                $data['description'] = $row['description'];
                 $data['cover_image'] = $row['cover_image'];
+                $data['description'] = $row['description'];
+                $data['link'] = $row['link'];
+                $data['popularity_counter'] = $row['popularity_counter'];
+                $data['owner_id'] = $row['owner_id'];
             }
         }
     }
@@ -148,10 +155,11 @@ function readUserData(){
                 $data['id'] = $row['id'];
                 $data['username'] = $row['username'];
                 $data['password'] = $row['password'];
-                array_push( $allData, $data);
+                array_push($allData, $data);
             }
         }
     }
+    my_closeDB($conn);
     return $allData;
 }
 
@@ -164,8 +172,6 @@ function checkIfBookAlreadyOwned($book_id, $user_id) {
     my_closeDB($conn);
     return $exists;
 }
-
-
 
 
 function getTrendingBooks(){
@@ -185,9 +191,11 @@ function getTrendingBooks(){
             }
         }
     }
-
+    my_closeDB($conn);
     return $allData;
 }
+
+
 function searchBook($title){
     $data = array();
     $conn = my_ConnectDB();
@@ -203,6 +211,5 @@ function searchBook($title){
     }
     my_closeDB($conn);
     return $data;
-
 }
 ?>

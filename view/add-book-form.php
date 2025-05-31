@@ -40,7 +40,7 @@
             <h1 class="text-[36px] font-bold bg-gradient-to-r from-[#042740] to-[#5283AB] bg-clip-text text-transparent">Add Book</h1>
             <div class="w-full flex flex-col gap-2">
                 <p class="font-bold text-[16px]">Title</p>
-                <input type="text" name="title" required class="w-full bg-[#EBF1F4] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-5">
+                <input type="text" name="title" required class="w-full bg-[#EBF1F4] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
             </div>
             <div class="w-full flex flex-col gap-2">
                 <p class="font-bold text-[16px]">Author</p>
@@ -66,7 +66,7 @@
                 <p class="font-bold text-[16px]">Cover</p>
                 <label class="bg-[#EBF1F4] w-[6.5rem] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer text-left">
                     Choose File
-                    <input type="file" name="cover" class="hidden">
+                    <input type="file" name="cover" required class="hidden">
                 </label>
             </div>
             <button type="submit" class="w-fill px-16 bg-[#0071E3] text-white p-2 rounded-lg hover:bg-blue-700 transition duration-200">Add</button>
