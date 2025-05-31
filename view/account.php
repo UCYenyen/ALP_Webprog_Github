@@ -28,9 +28,9 @@
                 <a href="community-collection.php">Community Collection</a>
             </div>
             <div class="flex md:hidden flex-col gap-1">
-               <div class="w-8 h-1 bg-black"></div>
-               <div class="w-8 h-1 bg-black"></div>
-               <div class="w-8 h-1 bg-black"></div>
+                <div class="w-8 h-1 bg-black"></div>
+                <div class="w-8 h-1 bg-black"></div>
+                <div class="w-8 h-1 bg-black"></div>
             </div>
             <div class="hidden md:block">
                 <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
@@ -38,7 +38,7 @@
         </div>
     </nav>
     
-   <main class="flex justify-center w-full">
+    <main class="flex justify-center w-full">
         <div class="w-full bg-white backdrop-blur-lg rounded-3xl shadow-2xl p-8">
             <h1 class="text-3xl font-bold text-slate-900 mb-6 drop-shadow text-center">Edit Account</h1>
 

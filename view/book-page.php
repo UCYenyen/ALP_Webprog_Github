@@ -53,7 +53,7 @@
                     <p class="text-lg"><strong>Genre:</strong> <?php echo"$bookDetails[genre]"?></p>
                     <p class="text-lg"><strong>Year published:</strong> <?php echo"$bookDetails[year_published]"?></p>
                 </div>
-                <p class="mt-4"><?php echo"$bookDetails[description]"?></p>
+                <p class="mt-4 text-justify"><?php echo"$bookDetails[description]"?></p>
                 <a href="#" class="text-blue-500 hover:underline mt-2 inline-block" id="read-more">Read more</a>
                 
                 <!-- Action Buttons -->
@@ -67,12 +67,7 @@
                         Get
                     </button>
                     <?php } else { ?>
-                    <button type="submit" class="flex items-center justify-center gap-2  bg-[#0071E3] text-white px-6 py-2 rounded-md">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 22.2453C17.595 22.2453 22.2454 17.5948 22.2454 11.9998C22.2454 6.39497 17.5847 1.75439 11.9897 1.75439C6.38529 1.75439 1.755 6.39497 1.755 11.9998C1.755 17.5948 6.39515 22.2453 12 22.2453ZM9.399 15.8973C8.37429 15.8973 7.62086 16.2585 7.28958 16.5603C7.15886 16.6605 7.02815 16.7308 6.81729 16.7308C6.55586 16.7308 6.34543 16.6001 6.34543 16.2388V8.47397C6.70672 7.74111 7.86215 7.14839 9.13758 7.14839C10.2729 7.14839 11.2269 7.66054 11.5886 8.35354V16.6605C11.5384 16.6507 11.2671 16.49 11.1767 16.4394C10.8853 16.2585 10.323 15.8973 9.399 15.8973ZM14.592 15.8973C13.668 15.8973 13.0954 16.2487 12.8139 16.4394C12.7136 16.4998 12.4723 16.6708 12.4024 16.6807V8.35354C12.774 7.66054 13.728 7.14839 14.8431 7.14839C16.1186 7.14839 17.274 7.74111 17.6353 8.47397V16.2388C17.6353 16.6001 17.4347 16.7308 17.1733 16.7308C16.9624 16.7308 16.8219 16.6605 16.7014 16.5603C16.3697 16.259 15.6064 15.8973 14.592 15.8973Z" fill="#FBFBFB"/>
-                        </svg>
-                        Read
-                    </button>
+                        <p class="text-gray-400">You already owned this book.</p>
                     <?php } ?>
                     <?php if($bookDetails['owner_id'] == $_SESSION['user_id']){?>
                     <button type="submit" class="flex items-center justify-center gap-2 bg-[#56C877] text-white px-6 py-2 rounded-md">
