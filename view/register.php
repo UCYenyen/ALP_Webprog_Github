@@ -9,7 +9,7 @@
             header("Location: index.php");
             exit();
         } else {
-            $error = $result; 
+            $error = "Username already exists!"; 
         }
     }
 ?>
@@ -37,7 +37,7 @@
                 <button type="submit" class="w-full bg-[#0071E3] text-white p-2 rounded-lg hover:bg-blue-700 transition duration-200">Register</button>
                 <?php
                 if (isset($error)) {
-                    echo '<div style="color:red; background-color:pink; border-radius: 8px; padding: 4px; width: 100%; display: flex; justify-content: center; align-items: center;">' . "Username already exists!" . '</div>';
+                    echo '<div style="color:red; background-color:pink; border-radius: 8px; padding: 4px; width: 100%; display: flex; justify-content: center; align-items: center;">' . $error . '</div>';
                 }
                 ?>
                 <p class="text-gray-600">Already have an account? <a href="index.php" class="text-[#0071e3] hover:underline">Login here</a></p>

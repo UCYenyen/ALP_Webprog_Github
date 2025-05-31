@@ -4,7 +4,7 @@
     if (isset($_SESSION['user_id'])) {
         // User is already logged in, redirect to personal collection
         header("Location: personal-collection.php");
-        exit;
+        exit();
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -32,7 +32,7 @@
 </head>
 <body class="bg-gradient-to-b from-[#D4EAF5] to-[#F3F7FA] overflow-x-hidden">
     <div class="w-screen h-screen flex justify-center items-center">
-        <form action="" name="login" method="POST">
+        <form action="" method="POST">
             <div class="flex flex-col items-center gap-[30px] justify-center p-6 bg-[#FBFBFD] shadow-md rounded-lg sm:w-[500px]">
                 <h1 class="text-[36px] font-bold bg-gradient-to-r from-[#042740] to-[#5283AB] bg-clip-text text-transparent">Bukuku</h1>
                 <div class="w-full flex flex-col gap-2">
@@ -48,7 +48,7 @@
                 
                 <?php
                 if (isset($error)) {
-                    echo '<div style="color:red; background-color:pink; border-radius: 8px; padding: 4px; width: 100%; display: flex; justify-content: center; align-items: center;">' . htmlspecialchars($error) . '</div>';
+                    echo '<div style="color:red; background-color:pink; border-radius: 8px; padding: 4px; width: 100%; display: flex; justify-content: center; align-items: center;">' . $error . '</div>';
                 }
                 ?>
                 <p class="text-gray-600">Don't have an account? <a href="register.php" class="text-[#0071e3] hover:underline">Register here</a></p>

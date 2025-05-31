@@ -1,11 +1,11 @@
 <?php
-//fungsi buat konek ke database
+
 function my_ConnectDB(){
 
     $host = "localhost";
-    $username = "root"; // Default XAMPP username
-    $password = ""; // Default XAMPP password
-    $database = "bukuku"; // Replace with your actual database name
+    $username = "root"; 
+    $password = ""; 
+    $database = "bukuku"; 
 
     $conn = mysqli_connect($host, $username, $password, $database);
 
@@ -14,11 +14,42 @@ function my_ConnectDB(){
     }
     return $conn;
 }
-// fungsi buat close koneksi ke database
-function my_closeDB($conn){
 
+function my_closeDB($conn){
     mysqli_close($conn);
 }
+
+function loginUser($username , $password){
+    $conn = my_ConnectDB();
+    $data = array();
+    $sql_query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+    $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $data['id'] = $row['id'];
+            $data['username'] = $row['username'];
+            $data['password'] = $row['password'];
+        }
+    }
+    my_closeDB($conn);
+    return $data;
+}
+
+function registerUser($username, $password){
+    $conn = my_ConnectDB();
+    $sql_query = "SELECT id FROM users WHERE username = '$username'";
+    $result = mysqli_query($conn, $sql_query);
+    if (mysqli_num_rows($result) > 0) {
+        my_closeDB($conn);
+        return false; 
+    }
+    
+    $sql_query = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+    $result = mysqli_query($conn, $sql_query);
+    my_closeDB($conn);
+    return $result; 
+}
+
 // fungsi buat read user data
 function readUserData(){
     $allDaTA = array();
@@ -27,7 +58,7 @@ function readUserData(){
         $sql_query = "SELECT * FROM users";
         $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
         if($result-> num_rows > 0){
-             while($row = $result->fetch_assoc()){
+            while($row = $result->fetch_assoc()){
                 // Simpan data dari db ke dalam array
                 $data['id'] = $row['id'];
                 $data['username'] = $row['username'];
@@ -151,40 +182,13 @@ function searchBook($title){
     return $data;
 
 }
-function loginUser($username , $password){
-    $data = array();
-    $conn = my_ConnectDB();
-    $sql_query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
-    $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $data['id'] = $row['id'];
-            $data['username'] = $row['username'];
-            $data['password'] = $row['password'];
-        }
-    }
-    my_closeDB($conn);
-    return $data;
-}
+
 function logoutUser() {
     session_destroy();
     header("Location: index.php");
     exit();
 }
-function registerUser($username, $password){
-    $conn = my_ConnectDB();
-    $sql_query = "SELECT id FROM users WHERE username = '$username'";
-    $result = mysqli_query($conn, $sql_query);
-    if (mysqli_num_rows($result) > 0) {
-        my_closeDB($conn);
-        return false; // Username sudah ada
-    }
-    // Jika username belum ada, lanjutkan registrasi
-    $sql_query = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
-    $result = mysqli_query($conn, $sql_query);
-    my_closeDB($conn);
-    return $result; 
-}
+
 function openBookPage($book_id) {
     header("Location: book-page.php");
     $_SESSION['book_id'] = $book_id;

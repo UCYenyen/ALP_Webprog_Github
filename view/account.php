@@ -1,7 +1,7 @@
 <?php
     session_start();
     include_once("../controller/controller.php");    
- 
+
     if (isset($_GET['action']) && $_GET['action'] == 'logout') {
         logoutUser();
         header("Location: index.php");
@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bryan Fernando - Obie Zuriel</title>
+    <title>Bukuku</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body class="h-screen sm:h-full flex flex-col gap-[30px] bg-gradient-to-b from-[#D4EAF5] to-[#F3F7FA] p-12">
