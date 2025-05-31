@@ -1,7 +1,6 @@
 <?php
 
 function my_ConnectDB(){
-
     $host = "localhost";
     $username = "root"; 
     $password = ""; 
@@ -50,28 +49,15 @@ function registerUser($username, $password){
     return $result; 
 }
 
-// fungsi buat read user data
-function readUserData(){
-    $allDaTA = array();
-    $conn = my_ConnectDB();
-    if($conn != null){
-        $sql_query = "SELECT * FROM users";
-        $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
-        if($result-> num_rows > 0){
-            while($row = $result->fetch_assoc()){
-                // Simpan data dari db ke dalam array
-                $data['id'] = $row['id'];
-                $data['username'] = $row['username'];
-                $data['password'] = $row['password'];
-                array_push( $allDaTA, $data);
-            }
-        }
-    }
-    return $allDaTA;
+function logoutUser() {
+    session_destroy();
+    header("Location: index.php");
+    exit();
 }
+
 function getPersonalBooks($user_id){
-    $allData = array();
     $conn = my_ConnectDB();
+    $allData = array();
     $ownedBooks = array();
 
     if($conn != null){
@@ -93,37 +79,6 @@ function getPersonalBooks($user_id){
     return $allData;
 }
 
-function checkIfBookAlreadyOwned($book_id, $user_id) {
-    $conn = my_ConnectDB();
-    $sql_query = "SELECT * FROM personal_collections WHERE book_id = '$book_id' AND user_id = '$user_id'";
-    $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
-    $exists = $result->num_rows > 0;
-    my_closeDB($conn);
-    return $exists;
-}
-
-function getBookById($book_id){
-    $data = array();
-    $conn = my_ConnectDB();
-    if($conn != null){
-        $sql_query = "SELECT * FROM books WHERE id = '$book_id'";
-        $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $data['id'] = $row['id'];
-                $data['title'] = $row['title'];
-                $data['genre'] = $row['genre'];
-                $data['year_published'] = $row['year_published'];
-                $data['owner_id'] = $row['owner_id'];
-                $data['author'] = $row['author'];
-                $data['description'] = $row['description'];
-                $data['cover_image'] = $row['cover_image'];
-            }
-        }
-    }
-    my_closeDB($conn);
-    return $data;
-}
 function getAllBook(){
     $allData = array();
     $conn = my_ConnectDB();
@@ -144,6 +99,74 @@ function getAllBook(){
 
     return $allData;
 }
+
+function getBookById($book_id){
+    $conn = my_ConnectDB();
+    $data = array();
+    if($conn != null){
+        $sql_query = "SELECT * FROM books WHERE id = '$book_id'";
+        $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data['id'] = $row['id'];
+                $data['title'] = $row['title'];
+                $data['genre'] = $row['genre'];
+                $data['year_published'] = $row['year_published'];
+                $data['owner_id'] = $row['owner_id'];
+                $data['author'] = $row['author'];
+                $data['description'] = $row['description'];
+                $data['cover_image'] = $row['cover_image'];
+            }
+        }
+    }
+    my_closeDB($conn);
+    return $data;
+}
+
+function openBookPagePersonal($book_id) {
+    $_SESSION['book_id'] = $book_id;
+    header("Location: book-page-personal.php");
+    exit();
+}
+
+function openBookPage($book_id) {
+    $_SESSION['book_id'] = $book_id;
+    header("Location: book-page.php");
+    exit();
+}
+
+// fungsi buat read user data
+function readUserData(){
+    $allData = array();
+    $conn = my_ConnectDB();
+    if($conn != null){
+        $sql_query = "SELECT * FROM users";
+        $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+        if($result-> num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                // Simpan data dari db ke dalam array
+                $data['id'] = $row['id'];
+                $data['username'] = $row['username'];
+                $data['password'] = $row['password'];
+                array_push( $allData, $data);
+            }
+        }
+    }
+    return $allData;
+}
+
+
+function checkIfBookAlreadyOwned($book_id, $user_id) {
+    $conn = my_ConnectDB();
+    $sql_query = "SELECT * FROM personal_collections WHERE book_id = '$book_id' AND user_id = '$user_id'";
+    $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+    $exists = $result->num_rows > 0;
+    my_closeDB($conn);
+    return $exists;
+}
+
+
+
 
 function getTrendingBooks(){
     $allData = array();
@@ -181,22 +204,5 @@ function searchBook($title){
     my_closeDB($conn);
     return $data;
 
-}
-
-function logoutUser() {
-    session_destroy();
-    header("Location: index.php");
-    exit();
-}
-
-function openBookPage($book_id) {
-    header("Location: book-page.php");
-    $_SESSION['book_id'] = $book_id;
-    exit();
-}
-function openBookPagePersonal($book_id) {
-    header("Location: book-page-personal.php");
-    $_SESSION['book_id'] = $book_id;
-    exit();
 }
 ?>

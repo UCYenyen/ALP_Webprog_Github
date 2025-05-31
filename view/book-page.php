@@ -2,6 +2,11 @@
     session_start();
     include_once("../controller/controller.php");
 
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: index.php");
+        exit();
+    }
+
     $bookDetails = getBookById($_SESSION['book_id']);
 ?>
 <!DOCTYPE html>
@@ -24,9 +29,9 @@
                 <a href="community-collection.php">Community Collection</a>
             </div>
             <div class="flex md:hidden flex-col gap-1">
-               <div class="w-8 h-1 bg-black"></div>
-               <div class="w-8 h-1 bg-black"></div>
-               <div class="w-8 h-1 bg-black"></div>
+                <div class="w-8 h-1 bg-black"></div>
+                <div class="w-8 h-1 bg-black"></div>
+                <div class="w-8 h-1 bg-black"></div>
             </div>
             <div class="hidden md:block">
                 <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
@@ -40,20 +45,20 @@
             <!-- Book Cover Image -->
             <div class="w-full md:w-1/4">
                 <img 
-                    src="<?php echo $bookDetails['cover_image']; ?>"  
+                    src="<?= $bookDetails["cover_image"] ?>"  
                     class="w-full h-auto object-cover rounded-md shadow-md"
                 >
             </div>
             
             <!-- Book Details -->
             <div class="w-full h-full md:w-3/4">
-                <h1 class="text-[32px] font-bold mb-2"><?php echo"$bookDetails[title]"?></h1>
+                <h1 class="text-[32px] font-bold mb-2"><?= $bookDetails["title"] ?></h1>
                 <div class="flex flex-col gap-2">
-                    <p class="text-lg"><strong>Author:</strong> <?php echo"$bookDetails[author]"?></p>
-                    <p class="text-lg"><strong>Genre:</strong> <?php echo"$bookDetails[genre]"?></p>
-                    <p class="text-lg"><strong>Year published:</strong> <?php echo"$bookDetails[year_published]"?></p>
+                    <p class="text-lg"><strong>Author:</strong> <?= $bookDetails["author"] ?></p>
+                    <p class="text-lg"><strong>Genre:</strong> <?= $bookDetails["genre"] ?></p>
+                    <p class="text-lg"><strong>Year published:</strong> <?= $bookDetails["year_published"] ?></p>
                 </div>
-                <p class="mt-4 text-justify"><?php echo"$bookDetails[description]"?></p>
+                <p class="mt-4 text-justify"><?= $bookDetails["description"]?></p>
                 <a href="#" class="text-blue-500 hover:underline mt-2 inline-block" id="read-more">Read more</a>
                 
                 <!-- Action Buttons -->

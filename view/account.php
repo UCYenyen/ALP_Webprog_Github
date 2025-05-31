@@ -1,10 +1,14 @@
 <?php
     session_start();
-    include_once("../controller/controller.php");    
+    include_once("../controller/controller.php"); 
+    
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: index.php");
+        exit();
+    }
 
     if (isset($_GET['action']) && $_GET['action'] == 'logout') {
         logoutUser();
-        header("Location: index.php");
     }
     
 ?>

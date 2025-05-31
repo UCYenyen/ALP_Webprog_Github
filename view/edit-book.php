@@ -1,6 +1,11 @@
 <?php 
     session_start();
     include_once("../controller/controller.php");
+
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: index.php");
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +38,7 @@
     </nav>
 
     <form action="text" method="POST">
-<div class="flex flex-col items-center gap-[30px] justify-center p-6 bg-[#FBFBFD] shadow-md rounded-lg">
+        <div class="flex flex-col items-center gap-[30px] justify-center p-6 bg-[#FBFBFD] shadow-md rounded-lg">
             <h1 class="text-[36px] font-bold bg-gradient-to-r from-[#042740] to-[#5283AB] bg-clip-text text-transparent">Add Book</h1>
             <div class="w-full flex flex-col gap-2">
                 <p class="font-bold text-[16px]">Title</p>

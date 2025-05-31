@@ -45,9 +45,9 @@
                 <a href="community-collection.php">Community Collection</a>
             </div>
             <div class="flex md:hidden flex-col gap-1">
-               <div class="w-8 h-1 bg-black"></div>
-               <div class="w-8 h-1 bg-black"></div>
-               <div class="w-8 h-1 bg-black"></div>
+                <div class="w-8 h-1 bg-black"></div>
+                <div class="w-8 h-1 bg-black"></div>
+                <div class="w-8 h-1 bg-black"></div>
             </div>
             <div class="hidden md:block">
                 <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>

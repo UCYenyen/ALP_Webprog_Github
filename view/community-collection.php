@@ -1,6 +1,11 @@
 <?php 
     session_start();
     include_once("../controller/controller.php");
+
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: index.php");
+        exit();
+    }
     $allBooks = getAllBook();
     $trendingBooks = getTrendingBooks();
 
@@ -28,9 +33,9 @@
                 <a href="community-collection.php">Community Collection</a>
             </div>
             <div class="flex md:hidden flex-col gap-1">
-               <div class="w-8 h-1 bg-black"></div>
-               <div class="w-8 h-1 bg-black"></div>
-               <div class="w-8 h-1 bg-black"></div>
+                <div class="w-8 h-1 bg-black"></div>
+                <div class="w-8 h-1 bg-black"></div>
+                <div class="w-8 h-1 bg-black"></div>
             </div>
             <div class="hidden md:block">
                 <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
