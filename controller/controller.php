@@ -39,12 +39,12 @@ function loginUser($username , $password){
     return $data;
 }
 
-function updateUser($user_id, $username, $password, $new_password = null, $profile_image) {
+function updateUser($user_id, $password, $new_password, $profile_image) {
     $conn = my_ConnectDB();
 
     if($password == $_SESSION['password']){
         if($new_password !== null && !empty($new_password)) {
-            $sql_query = "UPDATE users WHERE id = $user_id SET password = $new_password";
+            $sql_query = "UPDATE users SET password = '$new_password' WHERE id = $user_id";
             $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
             $_SESSION['password'] = $new_password;
         }

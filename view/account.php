@@ -12,7 +12,6 @@
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $username = $_SESSION['username'];
         $new_password = null;
         $profile_image = null;
 
@@ -22,11 +21,13 @@
         
         $password = $_POST['current_password'];
 
+        
+
         if (isset($_FILES['profile_image'])) {
             $profile_image = $_FILES['profile_image']['name'];
         }
 
-        updateUser($_SESSION['user_id'], $username, $password, $new_password, $profile_image);
+        updateUser($_SESSION['user_id'], $password, $new_password, $profile_image);
     }
 ?>
 <!DOCTYPE html>
@@ -70,6 +71,17 @@
             <h1 class="text-3xl font-bold text-slate-900 mb-6 drop-shadow text-center">Edit Account</h1>
 
             <form action="" method="POST" class="space-y-6" enctype="multipart/form-data">
+                <?php
+               if (isset($password) && !empty($password)) {
+                    if ($password != $_SESSION['password']) {
+                        // If the password is incorrect, show an error message
+                        echo "<div class='bg-red-300 w-full px-4 py-2 border border-gray-300 rounded-lg'>Incorrect password!</div>";
+                    } else if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
+                        // If the password is correct and form was submitted, show success message
+                        echo "<div class='bg-green-300 w-full px-4 py-2 border border-gray-300 rounded-lg'>Update success!</div>";
+                    }
+                }?>
+
                 <input type="hidden" name="action" value="update_profile">
                 
                 <!-- Profile Image Section with preview -->
