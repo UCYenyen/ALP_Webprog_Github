@@ -159,6 +159,22 @@ function getBookById($book_id){
     return $data;
 }
 
+function addNewBook($title, $author, $genre, $year_published, $cover, $description, $link) {
+    $conn = my_ConnectDB();
+    $cover_image = "uploads/books/" . basename($cover['name']);
+    
+    if (move_uploaded_file($cover['tmp_name'], $cover_image)) {
+        $sql_query = "INSERT INTO books (title, author, genre, year_published, cover_image, description, link, owner_id) 
+                        VALUES ('$title', '$author', '$genre', '$year_published', '$cover_image', '$description', '$link', '$_SESSION[user_id]')";
+        mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+    } else {
+        die("Error uploading cover image.");
+    }
+    
+    my_closeDB($conn);
+    header("Location: personal-collection.php");
+}
+
 function favoriteBook($book_id) {
     $conn = my_ConnectDB();
     $sql_query = "SELECT * FROM personal_collections WHERE book_id = '$book_id' AND user_id = '$_SESSION[user_id]'";

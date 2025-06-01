@@ -6,6 +6,18 @@
         header("Location: index.php");
         exit();
     }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $title = $_POST['title'];
+        $author = $_POST['author'];
+        $genre = $_POST['genre'];
+        $year_published = $_POST['year_published'];
+        $description = $_POST['description'];
+        $link = $_POST['link'];
+        $cover = $_FILES['cover']['name'];
+
+        addNewBook($title, $author, $genre, $year_published, $cover, $description, $link);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
