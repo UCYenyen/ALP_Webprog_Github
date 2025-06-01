@@ -22,6 +22,7 @@
     }
 
     if (isset($_GET['action']) && $_GET['action'] == 'book-page-personal') {
+        $_SESSION['book_id'] = $_GET['id'];
         openBookPagePersonal($_GET['id']);
     }
 ?>
@@ -90,7 +91,7 @@
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
             <?php 
             foreach($allOwnedBooks as $book){
-                if($book['is_favorite']){
+                if($book['is_favorite'] == 1){
             ?>
                 <a href="?action=book-page-personal&id=<?=$book['book_id']?>" class="w-full h-full" id="book_<?=$book['id']?>">
                     <img class="book object-cover object-left w-full h-full rounded-lg" src="<?=$book['cover_image']?>">

@@ -159,6 +159,34 @@ function getBookById($book_id){
     return $data;
 }
 
+function favoriteBook($book_id) {
+    $conn = my_ConnectDB();
+    $sql_query = "SELECT * FROM personal_collections WHERE book_id = '$book_id' AND user_id = '$_SESSION[user_id]'";
+    $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+    
+    if ($result->num_rows > 0) {
+        $sql_query = "UPDATE personal_collections SET is_favorite = NOT is_favorite WHERE book_id = '$book_id' AND user_id = '$_SESSION[user_id]'";
+    } 
+    
+    mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+    my_closeDB($conn);
+
+    header("Location: personal-collection.php");
+}
+
+function checkIfBookIsFavorite(){
+    $conn = my_ConnectDB();
+    $sql_query = "SELECT * FROM personal_collections WHERE book_id = '$_SESSION[book_id]' AND user_id = '$_SESSION[user_id]'";
+    $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['is_favorite'] == 1;
+    }
+    
+    my_closeDB($conn);
+    return false;
+}
 function openBookPagePersonal($book_id) {
     $_SESSION['book_id'] = $book_id;
     header("Location: book-page-personal.php");
@@ -224,6 +252,26 @@ function getTrendingBooks(){
     return $allData;
 }
 
+function getFavoriteBooks(){
+    $allData = array();
+    $conn = my_ConnectDB();
+    if($conn != null){
+        $sql_query = "SELECT * FROM personal_collections WHERE user_id = $_SESSION[user_id] AND is_favorite = 1";
+        $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data['id'] = $row['id'];
+                $data['title'] = $row['title'];
+                $data['author'] = $row['author'];
+                $data['description'] = $row['description'];
+                $data['cover_image'] = $row['cover_image'];
+                array_push($allData, $data);
+            }
+        }
+    }
+    my_closeDB($conn);
+    return $allData;
+}
 
 function searchBook($title){
     $data = array();

@@ -8,6 +8,10 @@
     }
 
     $bookDetails = getBookById($_SESSION['book_id']);
+
+    if(isset($_GET['action']) && $_GET['action'] == 'favorite'){
+        favoriteBook($_SESSION['book_id']);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,12 +79,21 @@
                         </svg>
                         Read
                     </a>
-                    <a class="flex items-center justify-center gap-2 bg-[#E3009B] text-white px-6 py-2 rounded-md">
+                    <?php if(!checkIfBookIsFavorite()){?>
+                    <a href="?action=favorite" class="flex items-center justify-center gap-2 bg-[#E3009B] text-white px-6 py-2 rounded-md">
                         <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M11 1C17.0711 1 22 5.92886 22 12C22 18.0711 17.0711 23 11 23C4.92886 23 0 18.0711 0 12C0 5.92886 4.92886 1 11 1ZM10.9873 17.9666L10.9833 17.9689H10.9911L10.9873 17.9666ZM10.9873 17.9666C20.5927 12.4307 16.0449 7.98156 13.8669 7.45992C12.4077 7.11067 11.4565 8.02298 10.9873 8.66373C10.5181 8.02298 9.56673 7.11067 8.10769 7.45992C5.92969 7.98139 1.38153 12.4307 10.9873 17.9666Z" fill="#FBFBFB"/>
                         </svg>
                         Favorite
                     </a>
+                    <?php } else { ?>
+                    <a href="?action=favorite" class="flex items-center justify-center gap-2 bg-[#E3009B] text-white px-6 py-2 rounded-md">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22ZM9.5 16L16.5 9L15.1 7.6L9.5 13.2L8.1 11.8L6.7 13.2L9.5 16Z" fill="#FBFBFB"/>
+                        </svg>
+                        Unfavorite
+                    </a>
+                    <?php } ?>
                     <a class="flex items-center justify-center gap-2 bg-[#FE3A31] text-white px-6 py-2 rounded-md">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M13.59 7.46984V8.02984H10.47V7.46984C10.4809 7.36834 10.5189 7.27164 10.58 7.18984C10.6597 7.13355 10.7528 7.09908 10.85 7.08984H13.4C13.4433 7.1106 13.481 7.14147 13.51 7.17984C13.5458 7.21509 13.5762 7.25555 13.6 7.29984C13.6131 7.35629 13.6097 7.41533 13.59 7.46984Z" fill="#FBFBFB"/>
