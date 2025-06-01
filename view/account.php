@@ -53,10 +53,10 @@
                 <div class="w-8 h-1 bg-black"></div>
                 <div class="w-8 h-1 bg-black"></div>
             </div>
-            <div class="hidden md:block">
+            <div class="hidden md:flex">
                 <?php if((isset($_SESSION['profile_image']))){?>
-                        <a href="account.php" class="w-10 h-10 rounded-full bg-black block">
-                            <img src="uploads/profiles/<?= $_SESSION['profile_image'] ?>" class="w-full h-full object-cover rounded-full">
+                        <a href="account.php" class="w-12 h-12 rounded-full flex">
+                            <img src="uploads/profiles/<?= $_SESSION['profile_image'] ?>" class="w-full h-full object-top object-cover rounded-full border-2 border-white shadow-md">
                         </a>
                 <?php } else { ?>
                         <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
@@ -78,7 +78,7 @@
                         <p class="text-gray-700 text-sm font-medium">Profile Image</p>
                         <div class="mb-2">
                             <!-- Image preview element -->
-                            <img id="imagePreview" src="#" alt="Image Preview" class="w-24 h-24 rounded-full object-cover hidden">
+                            <img id="imagePreview" src="#" alt="Image Preview" class="w-24 h-24 rounded-full object-cover hidden object-top">
                         </div>
                         <label class="bg-[#EBF1F4] w-[6.5rem] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer text-left">
                             Choose File
@@ -90,7 +90,7 @@
                 <div>
                     <label for="username" class="block mb-2 text-sm font-medium text-gray-700">Username</label>
                     <input type="text" id="username" name="username" value="<?= $_SESSION['username']?>" readonly disabled
-                        class="bg-[#EBF1F4] w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="bg-[#E4E4E4] w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div>
                     <label for="new_password" class="block mb-2 text-sm font-medium text-gray-700">New Password</label>
@@ -115,5 +115,22 @@
             </form>
         </div>
     </main>
+
+    <script>
+        function previewImage(input) {
+            const preview = document.getElementById('imagePreview');
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.src = "#";
+                preview.classList.add('hidden');
+            }
+        }
+    </script>
 </body>
 </html>

@@ -49,10 +49,10 @@
                 <div class="w-8 h-1 bg-black"></div>
                 <div class="w-8 h-1 bg-black"></div>
             </div>
-            <div class="hidden md:block">
+            <div class="hidden md:flex">
                 <?php if((isset($_SESSION['profile_image']))){?>
-                        <a href="account.php" class="w-10 h-10 rounded-full bg-black block">
-                            <img src="uploads/profiles/<?= $_SESSION['profile_image'] ?>" class="w-full h-full object-cover rounded-full">
+                        <a href="account.php" class="w-12 h-12 rounded-full flex">
+                            <img src="uploads/profiles/<?= $_SESSION['profile_image'] ?>" class="w-full h-full object-top object-cover rounded-full border-2 border-white shadow-md">
                         </a>
                 <?php } else { ?>
                         <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
