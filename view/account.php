@@ -10,7 +10,24 @@
     if (isset($_GET['action']) && $_GET['action'] == 'logout') {
         logoutUser();
     }
-    
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $username = $_SESSION['username'];
+        $new_password = null;
+        $profile_image = null;
+
+        if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+            $new_password = $_POST['new_password'];
+        }
+        
+        $password = $_POST['current_password'];
+
+        if (isset($_FILES['profile_image'])) {
+            $profile_image = $_FILES['profile_image']['name'];
+        }
+
+        updateUser($_SESSION['user_id'], $username, $password, $new_password, $profile_image);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,8 +54,14 @@
                 <div class="w-8 h-1 bg-black"></div>
             </div>
             <div class="hidden md:block">
-                <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
-        </div>
+                <?php if((isset($_SESSION['profile_image']))){?>
+                        <a href="account.php" class="w-10 h-10 rounded-full bg-black block">
+                            <img src="uploads/profiles/<?= $_SESSION['profile_image'] ?>" class="w-full h-full object-cover rounded-full">
+                        </a>
+                <?php } else { ?>
+                        <a href="account.php" class="w-10 h-10 rounded-full bg-black block"></a>
+                <?php } ?>
+            </div>
         </div>
     </nav>
     
@@ -66,7 +89,7 @@
 
                 <div>
                     <label for="username" class="block mb-2 text-sm font-medium text-gray-700">Username</label>
-                    <input type="text" id="username" name="username" value=""
+                    <input type="text" id="username" name="username" value="<?= $_SESSION['username']?>" readonly disabled
                         class="bg-[#EBF1F4] w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
                 <div>

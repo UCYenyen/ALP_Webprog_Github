@@ -12,8 +12,6 @@
         $password = $_POST['password'];
         $loginResult = loginUser($username, $password);
         if (!empty($loginResult)) {
-            $_SESSION['user_id'] = $loginResult['id'];
-            $_SESSION['username'] = $loginResult['username'];
             header("Location: personal-collection.php");
             exit();
         } else {

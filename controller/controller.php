@@ -27,10 +27,38 @@ function loginUser($username , $password){
             $data['id'] = $row['id'];
             $data['username'] = $row['username'];
             $data['password'] = $row['password'];
+            $data['profile_image'] = $row['profile_image'];
+            
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['password'] = $row['password'];
+            $_SESSION['profile_image'] = $row['profile_image'];
         }
     }
     my_closeDB($conn);
     return $data;
+}
+
+function updateUser($user_id, $username, $password, $new_password = null, $profile_image) {
+    $conn = my_ConnectDB();
+
+    if($password == $_SESSION['password']){
+        if($new_password !== null && !empty($new_password)) {
+            $sql_query = "UPDATE users WHERE id = $user_id SET password = $new_password";
+            $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+            $_SESSION['password'] = $new_password;
+        }
+        
+        if($profile_image !== null && !empty($profile_image)) {
+            move_uploaded_file($_FILES['profile_image']['tmp_name'], "uploads/profiles/" . $profile_image);
+            $sql_query = "UPDATE users SET profile_image = '$profile_image' WHERE id = $user_id";
+            $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+            $_SESSION['profile_image'] = $profile_image;
+        }
+    }
+
+    my_closeDB($conn);
+    return $result;
 }
 
 function registerUser($username, $password){
