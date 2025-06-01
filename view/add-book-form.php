@@ -76,7 +76,7 @@
             </div>
             <div class="w-full flex flex-col gap-2">
                 <p class="font-bold text-[16px]">Description</p>
-                <textarea maxlength="1000" rows="6" cols="50" required class="w-full bg-[#EBF1F4] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                <textarea name="description" maxlength="1000" rows="6" cols="50" required class="w-full bg-[#EBF1F4] p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
             </div>
             <div class="w-full flex flex-col gap-2">
                 <p class="font-bold text-[16px]">Link</p>
