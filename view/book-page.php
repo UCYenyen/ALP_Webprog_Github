@@ -8,6 +8,15 @@
     }
 
     $bookDetails = getBookById($_SESSION['book_id']);
+    if(isset($_GET['action'])){
+        if($_GET['action'] == 'edit'){
+            header("Location: edit-book.php");
+            exit();
+        } else if($_GET['action'] == 'get'){
+            getBook($_SESSION['book_id'], $_SESSION['user_id']);
+        }
+    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,23 +78,22 @@
                 <!-- Action Buttons -->
                 <div class="flex justify-end gap-4 absolute bottom-1 right-1">
                     <?php if(!checkIfBookAlreadyOwned($bookDetails['id'], $_SESSION['user_id'])){?>
-                    <button type="submit" class="flex items-center justify-center gap-2 bg-[#0071E3] text-white px-6 py-2 rounded-md">
+                    <a href="?action=get" class="flex items-center justify-center gap-2 bg-[#0071E3] text-white px-6 py-2 rounded-md">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V19C21 20.11 20.11 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 3.9 3.9 3 5 3ZM8 17H16V15H8V17ZM16 10H13.5V7H10.5V10H8L12 14L16 10Z" fill="#FBFBFB"/>
                         </svg>
                         Get
-                    </button>
+                    </a>
                     <?php } else { ?>
                         <p class="text-gray-400">You already owned this book.</p>
                     <?php } ?>
                     <?php if($bookDetails['owner_id'] == $_SESSION['user_id']){?>
-                    <button type="submit" class="flex items-center justify-center gap-2 bg-[#56C877] text-white px-6 py-2 rounded-md">
+                    <a href="?action=edit" class="flex items-center justify-center gap-2 bg-[#56C877] text-white px-6 py-2 rounded-md">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M19 3C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19ZM16.7 9.35C16.92 9.14 16.92 8.79 16.7 8.58L15.42 7.3C15.3705 7.24765 15.3108 7.20594 15.2446 7.17744C15.1784 7.14895 15.1071 7.13425 15.035 7.13425C14.9629 7.13425 14.8916 7.14895 14.8254 7.17744C14.7592 7.20594 14.6995 7.24765 14.65 7.3L13.65 8.3L15.7 10.35L16.7 9.35ZM7 14.94V17H9.06L15.12 10.94L13.06 8.88L7 14.94Z" fill="#FBFBFB"/>
                         </svg>
-
                         Edit
-                    </button>
+                    </a>
 
                     <button type="submit" class="flex items-center justify-center gap-2 bg-[#FE3A31] text-white px-6 py-2 rounded-md">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -38,6 +38,7 @@ function loginUser($username , $password){
     my_closeDB($conn);
     return $data;
 }
+
 function addNewBook($title, $author, $genre, $year_published, $cover, $description, $link) {
     $conn = my_ConnectDB();
 
@@ -46,6 +47,37 @@ function addNewBook($title, $author, $genre, $year_published, $cover, $descripti
         $cover_directory = "uploads/books/" . $cover;
         $sql_query = "INSERT INTO books (title, author, genre, year_published, cover_image, description, link, owner_id) 
                         VALUES ('$title', '$author', '$genre', '$year_published', '$cover_directory', '$description', '$link', '$_SESSION[user_id]')";
+        mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+    }
+    
+    my_closeDB($conn);
+    header("Location: personal-collection.php");
+}
+
+function getBook($book_id, $user_id) {
+    $conn = my_ConnectDB();
+    if($conn != null){
+        $sql_query = "INSERT INTO personal_collections (book_id, user_id) VALUES ($book_id, $user_id)";
+        mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+        header("Location: personal-collection.php");
+    }
+    my_closeDB($conn);
+}
+
+function editBook($title, $author, $genre, $year_published, $cover, $description, $link) {
+    $conn = my_ConnectDB();
+
+    if($cover !== null && !empty($cover)) {
+        move_uploaded_file($_FILES['cover']['tmp_name'], "uploads/books/" . $cover);
+        $cover_directory = "uploads/books/" . $cover;
+        $sql_query = "UPDATE books SET title = '$title', author = '$author', genre = '$genre', year_published = '$year_published',
+                        cover_image = '$cover_directory', description = '$description', link = '$link' 
+                        WHERE owner_id = '$_SESSION[user_id]' AND id = '$_SESSION[book_id]'";
+        mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+    } else {
+        $sql_query = "UPDATE books SET title = '$title', author = '$author', genre = '$genre', year_published = '$year_published',
+                        description = '$description', link = '$link' 
+                        WHERE owner_id = '$_SESSION[user_id]' AND id = '$_SESSION[book_id]'";
         mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
     }
     

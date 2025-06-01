@@ -22,7 +22,6 @@
     }
 
     if (isset($_GET['action']) && $_GET['action'] == 'book-page-personal') {
-        $_SESSION['book_id'] = $_GET['id'];
         openBookPagePersonal($_GET['id']);
     }
 ?>

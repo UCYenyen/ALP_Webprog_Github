@@ -89,7 +89,7 @@
         </div>
     </div>
 
-     <!-- Community Collections -->
+    <!-- Community Collections -->
     <div class="flex flex-col bg-white shadow-md rounded-lg p-6 gap-[20px]">
         <!-- TOP -->
         <div class="flex flex-col sm:flex-row justify-between justify-left sm:items-center">
