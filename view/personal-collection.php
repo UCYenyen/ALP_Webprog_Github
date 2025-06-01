@@ -132,7 +132,7 @@
             foreach($allOwnedBooks as $book){
             ?>
             <a href="?action=book-page-personal&id=<?=$book['book_id']?>" class="w-full h-full">
-                <img class="object-cover object-left w-full h-full" src="<?=$book['cover_image']?>" id="book_<?= $book['id'] ?>">
+                <img class="rounded-lg object-cover object-left w-full h-full" src="<?=$book['cover_image']?>" id="book_<?= $book['id'] ?>">
             </a>
             <?php 
             }
