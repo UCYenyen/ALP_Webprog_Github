@@ -7,8 +7,13 @@
         exit();
     }
 
-    if (isset($_GET['action']) && $_GET['action'] == 'logout') {
-        logoutUser();
+    if (isset($_GET['action'])) {
+        if($_GET['action'] == 'logout'){
+            logoutUser();
+        }else if($_GET['action'] == 'delete'){
+            deleteUser($_SESSION['user_id']);
+            exit();
+        }
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -116,13 +121,18 @@
                         class="bg-[#EBF1F4] w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <p class="mt-1 text-sm text-gray-500">Required to confirm changes</p>
                 </div>
-                <div class="flex justify-end gap-4">
-                    <button type="submit" name="save" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
-                        Save
-                    </button>
-                    <a href="?action=logout" class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition inline-block text-center">
-                        Logout
+                <div class="flex justify-between gap-4">
+                    <a href="?action=delete" class="px-6 py-2 bg-slate-400 text-white rounded-lg hover:bg-red-600 transition inline-block text-center">
+                            Delete Account
                     </a>
+                    <div>
+                        <button type="submit" name="save" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+                            Save
+                        </button>
+                        <a href="?action=logout" class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition inline-block text-center">
+                            Logout
+                        </a>
+                    </div>
                 </div>
             </form>
         </div>

@@ -91,7 +91,7 @@ function logoutUser() {
 function deleteUser($user_id){
     $conn = my_ConnectDB();
     if($conn != null){
-        $sql_query = "DELETE FROM personal_collection WHERE user_id = $user_id OR book_id IN (SELECT id FROM book WHERE owner_id = $user_id)";
+        $sql_query = "DELETE FROM personal_collections WHERE user_id = $user_id OR book_id IN (SELECT id FROM books WHERE owner_id = $user_id)";
         mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
         $sql_query = "DELETE FROM books WHERE owner_id = $user_id";
         mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
@@ -129,7 +129,28 @@ function getBookById($book_id){
     return $data;
 }
 
-
+function searchBook($title){
+    $conn = my_ConnectDB();
+    $allData = array();
+    if($conn != null){
+        $sql_query = "SELECT * FROM books WHERE title LIKE '%$title%'";
+        $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data['id'] = $row['id'];
+                $data['title'] = $row['title'];
+                $data['author'] = $row['author'];
+                $data['genre'] = $row['genre'];
+                $data['year_published'] = $row['year_published'];
+                $data['cover_image'] = $row['cover_image'];
+                $data['description'] = $row['description'];
+                array_push($allData, $data);
+            }
+        }
+    }
+    my_closeDB($conn);
+    return $allData;
+}
 
 
 

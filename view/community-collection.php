@@ -6,11 +6,29 @@
         header("Location: index.php");
         exit();
     }
+    
     $allBooks = getAllBook();
     $trendingBooks = getTrendingBooks();
+    $searchedBook = null;
 
-    if (isset($_GET['action']) && $_GET['action'] == 'book-page') {
-        openBookPage($_GET['id']);
+    $isSearchingTrending = false;
+    $isSearchingCommunity = false; 
+
+    if (isset($_GET['action'])) {
+        if($_GET['action'] == 'book-page'){
+            openBookPage($_GET['id']);
+        }
+
+        if($_GET['action'] == 'search-trending'){
+            $searchQuery = $_GET['search'] ?? '';
+            $isSearchingTrending = true;
+            $searchedBook = searchBook(title: $searchQuery);
+        }else if($_GET['action'] == 'search-community'){
+            $searchQuery = $_GET['search-community'] ?? '';
+            $isSearchingCommunity = true;
+            $searchedBook = searchBook($searchQuery);
+        }
+
     }
 ?>
 <!DOCTYPE html>
@@ -55,6 +73,7 @@
         <div class="flex flex-col sm:flex-row justify-between justify-left sm:items-center">
             <h1 class="text-[32px] font-bold text-left">Trending Books</h1>
             <form action="" method="get" class="mt-2 sm:mt-0 flex items-center gap-2 bg-[#EBF1F4]">
+                <input type="hidden" name="action" value="search-trending">
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <!-- Search Icon SVG -->
@@ -68,7 +87,7 @@
                         name="search"
                         placeholder="Search books..."
                         class="border border-gray-300 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
+                        value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>"
                     >
                 </div>
             </form>
@@ -76,14 +95,26 @@
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
             <?php 
-            foreach($trendingBooks as $book){
-                $coverImage = $book['cover_image'];
-                $bookId = $book['id']; // Make sure to get the book ID
+            if(!$isSearchingTrending){
+                foreach($trendingBooks as $book){
+                    $coverImage = $book['cover_image'];
+                    $bookId = $book['id']; // Make sure to get the book ID
             ?>
                 <a href="?action=book-page&id=<?= $bookId ?>" class="w-full h-full">
                     <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
                 </a>
             <?php 
+                }
+            }else{
+                foreach($searchedBook as $book){
+                    $coverImage = $book['cover_image'];
+                    $bookId = $book['id'];
+            ?>
+                <a href="?action=book-page&id=<?= $bookId ?>" class="w-full h-full">
+                    <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
+                </a>
+            <?php 
+                }
             }
             ?>
         </div>
@@ -95,6 +126,7 @@
         <div class="flex flex-col sm:flex-row justify-between justify-left sm:items-center">
             <h1 class="text-[32px] font-bold text-left">Community Books</h1>
             <form action="" method="get" class="mt-2 sm:mt-0 flex items-center gap-2 bg-[#EBF1F4]">
+                <input type="hidden" name="action" value="search-community">
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <!-- Search Icon SVG -->
@@ -105,10 +137,10 @@
                     </span>
                     <input
                         type="text"
-                        name="search"
+                        name="search-community"
                         placeholder="Search books..."
                         class="border border-gray-300 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
+                        value="<?php echo isset($_GET['search-community']) ? $_GET['search-community'] : ''; ?>"
                     >
                 </div>
             </form>
@@ -116,26 +148,31 @@
         <!-- BOOKS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-[20px] w-full">
             <?php 
-            foreach($allBooks as $book){
-                $coverImage = $book['cover_image'];
-                $bookId = $book['id'];
+            if(!$isSearchingCommunity){
+                foreach($allBooks as $book){
+                    $coverImage = $book['cover_image'];
+                    $bookId = $book['id'];   
             ?>
                 <a href="?action=book-page&id=<?= $bookId ?>" class="w-full h-full">
                     <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
                 </a>
             <?php 
-            }
+                }
+            }else{
+                foreach($searchedBook as $book){
+                        $coverImage = $book['cover_image'];
+                        $bookId = $book['id'];
+                ?>
+                    <a href="?action=book-page&id=<?= $bookId ?>" class="w-full h-full">
+                        <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
+                    </a>
+                <?php 
+                    }
+                }
             ?>
         </div>
         <!-- Navigation -->
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-[20px] w-full">
-            <!-- Add Book button (visible on mobile only) -->
-            <div class="block sm:hidden w-full mb-2">
-                <button class="w-full font-bold text-[20px] bg-[#0071E3] text-white rounded-lg p-2">
-                    Add Book
-                </button>
-            </div>
-            <!-- Add Book button (visible on desktop only) -->
+        <div class="flex flex-col sm:flex-row items-center justify-end gap-[20px] w-full">
             <div class="hidden sm:block">
                 <a class="font-bold text-[20px] bg-[#0071E3] text-white rounded-lg px-4 py-2" href="add-book-form.php">
                     Add
