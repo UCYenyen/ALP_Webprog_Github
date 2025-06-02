@@ -135,16 +135,6 @@
                     Add Book
                 </button>
             </div>
-            <!-- Pagination -->
-            <div class="flex items-center justify-center gap-[20px] flex-1">
-                <button class="font-bold text-[20px]"> &lt; </button>
-                <a href="" class="text-[20px]">1</a>
-                <a href="" class="text-[20px]">2</a>
-                <a href="" class="text-[20px]">3</a>
-                <a href="" class="text-[20px]">....</a>
-                <a href="" class="text-[20px]">5</a>
-                <button class="font-bold text-[20px]"> &gt; </button>
-            </div>
             <!-- Add Book button (visible on desktop only) -->
             <div class="hidden sm:block">
                 <a class="font-bold text-[20px] bg-[#0071E3] text-white rounded-lg px-4 py-2" href="add-book-form.php">
