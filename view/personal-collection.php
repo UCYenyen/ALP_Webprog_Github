@@ -12,14 +12,7 @@
     $user_id = $_SESSION['user_id'];
 
     $allOwnedBooks = getPersonalBooks($user_id);
-    $searchedBook;
-    $isSearching = false;
 
-    if(!empty($_GET['search'])) {
-        $searchTitle = $_GET['search'];
-        $searchedBook = searchBook($searchTitle);
-        $isSearching = true;
-    }
 
     if (isset($_GET['action']) && $_GET['action'] == 'book-page-personal') {
         openBookPagePersonal($_GET['id']);
