@@ -182,9 +182,9 @@ function getPersonalBooks($user_id){
     return $allData;
 }
 
-function checkIfBookIsFavorite(){
+function checkIfBookIsFavorite($book_id){
     $conn = my_ConnectDB();
-    $sql_query = "SELECT * FROM personal_collections WHERE book_id = '$_SESSION[book_id]' AND user_id = '$_SESSION[user_id]'";
+    $sql_query = "SELECT * FROM personal_collections WHERE book_id = $book_id AND user_id = $_SESSION[user_id]";
     $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
     
     if ($result->num_rows > 0) {
