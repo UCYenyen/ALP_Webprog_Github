@@ -91,7 +91,7 @@
                 
                 <!-- Book Details -->
                 <div class="w-full md:w-3/4">
-                    <div class="h-full gap-4 flex flex-col justify-between">
+                    <div class="h-full gap-4 flex flex-col justify-between gap-4">
                         <div>
                             <h1 class="text-[32px] font-bold mb-2"><?= $bookDetails["title"] ?></h1>
                             <div class="flex flex-col gap-2">

@@ -149,11 +149,11 @@
                         <a href="?action=delete" class="px-6 py-2 bg-slate-400 text-white rounded-lg hover:bg-red-600 transition inline-block text-center">
                                 Delete Account
                         </a>
-                        <div>
-                            <button type="submit" name="save" class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+                        <div class="w-full sm:w-auto flex flex-col sm:flex-row gap-4">
+                            <button type="submit" name="save" class="w-full px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
                                 Save
                             </button>
-                            <a href="?action=logout" class="px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition inline-block text-center">
+                            <a href="?action=logout" class="w-full px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition inline-block text-center">
                                 Logout
                             </a>
                         </div>

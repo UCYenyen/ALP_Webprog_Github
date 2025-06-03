@@ -85,7 +85,7 @@
         <div class="flex flex-col bg-white shadow-md rounded-lg p-6 gap-[20px]">
             <div class="flex flex-col md:flex-row gap-8 h-full justify-between">
                 <!-- Book Cover Image -->
-            <div class="w-full sm:w-[21rem]">
+                <div class="w-full sm:w-[21rem]">
                     <img 
                         src="<?= $bookDetails["cover_image"] ?>"  
                         class="w-full h-auto object-cover rounded-md shadow-md"
@@ -93,8 +93,8 @@
                 </div>
                 
                 <!-- Book Details -->
-                <div class="w-full md:w-3/4">
-                    <div class="h-full flex flex-col justify-between">
+                <div class="w-full md:w-3/4 gap-4">
+                    <div class="h-full flex flex-col justify-between gap-4">
                         <div>
                             <h1 class="text-[32px] font-bold mb-2"><?= $bookDetails["title"] ?></h1>
                             <div class="flex flex-col gap-2">
