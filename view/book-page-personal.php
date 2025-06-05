@@ -26,9 +26,34 @@
     <title>Bukuku</title>
     <script src="../controller/controller.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"></script>
+
+    <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const tl = gsap.timeline();
+                tl.from(".slide", {
+                    x: -100,
+                    opacity: 0,
+                    duration: 1,
+                    stagger: 0.2,
+                    ease: "power3.out"
+                });
+                tl.from(".card", {
+                    opacity: 0,
+                    duration: 0.5,
+                    stagger: 0.1,
+                    ease: "back.out(1.7)"
+                }, .2); // Start at the same time as the previous animation
+            });
+        </script>
 </head>
 <body class="">
-    <div id="mobile-navbar" class="hidden fixed flex justify-between flex-col w-screen h-screen bg-[#F3F7FA]/97 backdrop-blur-sm p-12">
+    <div id="mobile-navbar" class="z-100 hidden fixed flex justify-between flex-col w-screen h-screen bg-[#F3F7FA]/97 backdrop-blur-sm p-12">
         <div class="p-4">
             <div onclick='openMoibileNavbar()' class="flex justify-end w-full">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="black" x="0px" y="0px" width="50" height="50" viewBox="0 0 30 30">
@@ -50,9 +75,9 @@
         <div></div>
     </div>
 
-    <div id="container" class="flex flex-col gap-[30px] bg-gradient-to-b from-[#D4EAF5] to-[#F3F7FA] p-12">
+    <div id="container" class="flex flex-col gap-[30px] bg-gradient-to-b from-[#D4EAF5] to-[#F3F7FA] p-12 md:h-screen">
         <!-- Navbar -->
-        <nav class="flex justify-center items-center">
+        <nav class="slide flex justify-center items-center">
             <div class="w-screen p-6 flex items-center justify-between bg-white shadow-md rounded-lg">
                 <h1 class="text-[32px] font-bold bg-gradient-to-r from-[#042740] to-[#5283AB] bg-clip-text text-transparent">
                     Bukuku
@@ -79,13 +104,13 @@
         </nav>
 
         <!-- Book Details -->
-        <div class="flex flex-col bg-white shadow-md rounded-lg p-6 gap-[20px]">
+        <div class="slide flex flex-col bg-white shadow-md rounded-lg p-6 gap-[20px]">
             <div class="flex flex-col md:flex-row gap-8 h-full justify-between">
                 <!-- Book Cover Image -->
                 <div class="w-full sm:w-[21rem]">
                     <img 
                         src="<?= $bookDetails['cover_image']?>"  
-                        class="w-full h-auto object-cover rounded-md shadow-md"
+                        class="w-full h-full object-cover rounded-md shadow-md"
                     >
                 </div>
                 

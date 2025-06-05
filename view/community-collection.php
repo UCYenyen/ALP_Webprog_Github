@@ -48,9 +48,34 @@
         <?php } ?>
     }
     </script>
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tl = gsap.timeline();
+            tl.from(".slide", {
+                x: -100,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+            tl.from(".card", {
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: "back.out(1.7)"
+            }, .2); // Start at the same time as the previous animation
+        });
+    </script>
 </head>
 <body onload="makeBackgroundToFit()">
-   <div id="mobile-navbar" class="hidden fixed flex justify-between flex-col w-screen h-screen bg-[#F3F7FA]/97 backdrop-blur-sm p-12">
+   <div id="mobile-navbar" class="z-100 hidden fixed flex justify-between flex-col w-screen h-screen bg-[#F3F7FA]/97 backdrop-blur-sm p-12">
         <div class="p-4">
             <div onclick='openMoibileNavbar()' class="flex justify-end w-full">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="black" x="0px" y="0px" width="50" height="50" viewBox="0 0 30 30">
@@ -74,7 +99,7 @@
 
     <div id="container" class="flex flex-col gap-[30px] bg-gradient-to-b from-[#D4EAF5] to-[#F3F7FA] p-12">
         <!-- Navbar -->
-        <nav class="flex justify-center items-center">
+        <nav class="slide flex justify-center items-center">
             <div class="w-screen p-6 flex items-center justify-between bg-white shadow-md rounded-lg">
                 <h1 class="text-[32px] font-bold bg-gradient-to-r from-[#042740] to-[#5283AB] bg-clip-text text-transparent">
                     Bukuku
@@ -101,7 +126,7 @@
         </nav>
 
         <!-- Trending Books -->
-        <div class="flex flex-col bg-white shadow-md rounded-lg p-6 gap-[20px]">
+        <div class="slide flex flex-col bg-white shadow-md rounded-lg p-6 gap-[20px]">
             <!-- TOP -->
             <div class="flex gap-2 sm:gap-0 flex-col sm:flex-row items-left sm:justify-between sm:items-center">
                 <h1 class="text-[32px] font-bold text-left">Trending Books</h1>
@@ -131,7 +156,7 @@
                         $coverImage = $book['cover_image'];
                         $bookId = $book['id']; // Make sure to get the book ID
                 ?>
-                    <a href="?action=book-page&id=<?= $bookId ?>" class="w-full h-full">
+                    <a href="?action=book-page&id=<?= $bookId ?>" class="card w-full h-full">
                         <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
                     </a>
                 <?php 
@@ -141,7 +166,7 @@
                         $coverImage = $book['cover_image'];
                         $bookId = $book['id'];
                 ?>
-                    <a href="?action=book-page&id=<?= $bookId ?>" class="w-full h-full">
+                    <a href="?action=book-page&id=<?= $bookId ?>" class="card w-full h-full">
                         <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
                     </a>
                 <?php 
@@ -152,7 +177,7 @@
         </div>
 
         <!-- Community Collections -->
-        <div class="flex flex-col bg-white shadow-md rounded-lg p-6 gap-[20px]">
+        <div class="slide flex flex-col bg-white shadow-md rounded-lg p-6 gap-[20px]">
             <!-- TOP -->
             <div class="flex gap-2 sm:gap-0 flex-col sm:flex-row items-left sm:justify-between sm:items-center">
                 <h1 class="text-[32px] font-bold text-left">Community Books</h1>
@@ -182,7 +207,7 @@
                         $coverImage = $book['cover_image'];
                         $bookId = $book['id'];   
                 ?>
-                    <a href="?action=book-page&id=<?= $bookId ?>" class="w-full h-full">
+                    <a href="?action=book-page&id=<?= $bookId ?>" class="card w-full h-full">
                         <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
                     </a>
                 <?php 
@@ -192,7 +217,7 @@
                             $coverImage = $book['cover_image'];
                             $bookId = $book['id'];
                     ?>
-                        <a href="?action=book-page&id=<?= $bookId ?>" class="w-full h-full">
+                        <a href="?action=book-page&id=<?= $bookId ?>" class="card w-full h-full">
                             <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
                         </a>
                     <?php 

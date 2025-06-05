@@ -63,18 +63,19 @@ function updateUser($user_id, $password, $new_password, $profile_image) {
     $conn = my_ConnectDB();
 
     if($password == $_SESSION['password']){
-        if($new_password !== null && !empty($new_password)) {
-            $sql_query = "UPDATE users SET password = '$new_password' WHERE id = $user_id";
-            $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
-            $_SESSION['last_password'] = $_SESSION['password'];
-            $_SESSION['password'] = $new_password;
-        }
-        
         if($profile_image !== null && !empty($profile_image)) {
             move_uploaded_file($_FILES['profile_image']['tmp_name'], "uploads/profiles/" . $profile_image);
             $sql_query = "UPDATE users SET profile_image = '$profile_image' WHERE id = $user_id";
             $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
             $_SESSION['profile_image'] = $profile_image;
+        }
+
+        if($new_password !== null && !empty($new_password)) {
+            $_SESSION['last_password'] = $_SESSION['password'];
+            $_SESSION['password'] = $new_password;
+            
+            $sql_query = "UPDATE users SET password = '$new_password' WHERE id = $user_id";
+            $result = mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
         }
     }
 

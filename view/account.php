@@ -25,6 +25,7 @@
         }
         
         $password = $_POST['current_password'];
+        $_SESSION['last_password'] = $password; // Store the last password for comparison
 
         
 
@@ -43,6 +44,31 @@
     <title>Bukuku</title>
     <script src="../controller/controller.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- GSAP -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"></script>
+
+   <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tl = gsap.timeline();
+            tl.from(".slide", {
+                x: -100,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+            tl.from(".card", {
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: "back.out(1.7)"
+            }, .2); // Start at the same time as the previous animation
+        });
+    </script>
 </head>
 <body class="">
     <div id="mobile-navbar" class="z-100 hidden fixed flex justify-between flex-col w-screen h-screen bg-[#F3F7FA]/97 backdrop-blur-sm p-12">
@@ -69,7 +95,7 @@
 
     <div id="container" class="flex flex-col gap-[30px] bg-gradient-to-b from-[#D4EAF5] to-[#F3F7FA] p-12">
         <!-- Navbar -->
-        <nav class="flex justify-center items-center">
+        <nav class="slide flex justify-center items-center">
             <div class="w-screen p-6 flex items-center justify-between bg-white shadow-md rounded-lg">
                 <h1 class="text-[32px] font-bold bg-gradient-to-r from-[#042740] to-[#5283AB] bg-clip-text text-transparent">
                     Bukuku
@@ -95,13 +121,13 @@
             </div>
         </nav>
         
-        <main class="flex justify-center w-full">
+        <main class="slide flex justify-center w-full">
             <div class="w-full bg-white backdrop-blur-lg rounded-3xl shadow-2xl p-8">
                 <h1 class="text-3xl font-bold text-slate-900 mb-6 drop-shadow text-center">Edit Account</h1>
 
                 <form action="" method="POST" class="space-y-6" enctype="multipart/form-data">
                     <?php
-                if (isset($password) && !empty($password)) {
+                    if (isset($password) && !empty($password)) {
                         if ($password != $_SESSION['last_password']) {
                             // If the password is incorrect, show an error message
                             echo "<div class='bg-red-300 w-full px-4 py-2 border border-gray-300 rounded-lg'>Incorrect password!</div>";
