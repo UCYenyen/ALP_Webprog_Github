@@ -49,7 +49,7 @@
     <script>
     function makeBackgroundToFit(){
         const body = document.getElementById('container');
-        <?php if(empty($allBooks)) { ?>
+        <?php if(empty($allOwnedBooks)) { ?>
         body.classList.add('h-screen');
         <?php } else { ?>
         body.classList.remove('h-screen');

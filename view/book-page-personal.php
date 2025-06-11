@@ -26,7 +26,6 @@
     <title>Bukuku</title>
     <script src="../controller/controller.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
     <!-- GSAP -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
@@ -52,7 +51,7 @@
             });
         </script>
 </head>
-<body class="">
+<body>
     <div id="mobile-navbar" class="z-100 hidden fixed flex justify-between flex-col w-screen h-screen bg-[#F3F7FA]/97 backdrop-blur-sm p-12">
         <div class="p-4">
             <div onclick='openMoibileNavbar()' class="flex justify-end w-full">
