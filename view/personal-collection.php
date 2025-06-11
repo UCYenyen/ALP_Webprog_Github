@@ -167,8 +167,8 @@
                             $coverImage = $book['cover_image'];
                             $bookId = $book['book_id'];
                 ?>
-                        <a href="?action=book-page-personal&id=<?= $bookId ?>" class="card w-full h-full">
-                            <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
+                        <a href="?action=book-page-personal&id=<?= $bookId ?>" class="card w-full h-full border-1 border-gray-200 rounded-lg">
+                            <img class="object-cover object-center w-full h-full rounded-lg" src="<?= $coverImage ?>">
                         </a>
                 <?php 
                         }
@@ -179,8 +179,8 @@
                             $coverImage = $book['cover_image'];
                             $bookId = $book['id'];
                 ?>
-                        <a href="?action=book-page-personal&id=<?= $bookId ?>" class="card w-full h-full">
-                            <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
+                        <a href="?action=book-page-personal&id=<?= $bookId ?>" class="card w-full h-full border-1 border-gray-200 rounded-lg">
+                            <img class="object-cover object-center w-full h-full rounded-lg" src="<?= $coverImage ?>">
                         </a>
                 <?php 
                         }
@@ -220,8 +220,8 @@
                 if(!$isSearchingOwned){
                     foreach($allOwnedBooks as $book){
                 ?>
-                    <a href="?action=book-page-personal&id=<?=$book['book_id']?>" class="card w-full h-full">
-                        <img class="rounded-lg object-cover object-left w-full h-full" src="<?=$book['cover_image']?>" id="book_<?= $book['id'] ?>">
+                    <a href="?action=book-page-personal&id=<?=$book['book_id']?>" class="card w-full h-full border-1 border-gray-200 rounded-lg">
+                        <img class="rounded-lg object-cover object-center w-full h-full" src="<?=$book['cover_image']?>" id="book_<?= $book['id'] ?>">
                     </a>
                 <?php 
                     }
@@ -230,8 +230,8 @@
                         $coverImage = $book['cover_image'];
                         $bookId = $book['id'];
                 ?>
-                    <a href="?action=book-page-personal&id=<?= $bookId ?>" class="card w-full h-full">
-                        <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
+                    <a href="?action=book-page-personal&id=<?= $bookId ?>" class="card w-full h-full border-1 border-gray-200 rounded-lg">
+                        <img class="object-cover object-center w-full h-full rounded-lg" src="<?= $coverImage ?>">
                     </a>
                 <?php 
                     }
