@@ -115,8 +115,18 @@
                     Bukuku
                 </h1>
                 <div class="hidden md:flex gap-[48px] text-[22px]">
-                    <a href="personal-collection.php">Personal Collection</a>
-                    <a href="community-collection.php">Community Collection</a>
+                    <a 
+                        class="bg-[#0071E3]/60 text-white rounded-xl p-2 transition-all duration-200 ease-in-out hover:bg-[#005bb5]/80" 
+                        href="personal-collection.php"
+                    >
+                        Personal Collection
+                    </a>
+                    <a 
+                        class="rounded-xl p-2 transition-all duration-200 ease-in-out hover:bg-[#0071E3]/80 hover:text-white" 
+                        href="community-collection.php"
+                    >
+                        Community Collection
+                    </a>
                 </div>
                 <div onclick='openMoibileNavbar()' class="flex md:hidden flex-col gap-1">
                     <div class="w-8 h-1 bg-black"></div>
