@@ -22,7 +22,7 @@
         if($_GET['action'] == 'search-trending'){
             $searchQuery = $_GET['search-trending'] ?? '';
             $isSearchingTrending = true;
-            $searchedBook = searchBook(title: $searchQuery);
+            $searchedBook = searchBook($searchQuery);
         }else if($_GET['action'] == 'search-community'){
             $searchQuery = $_GET['search-community'] ?? '';
             $isSearchingCommunity = true;

@@ -31,7 +31,7 @@
         if($_GET['action'] == 'search-favorite'){
             $searchQuery = $_GET['search-favorite'] ?? '';
             $isSearchingFavorite = true;
-            $searchedBook = searchBook(title: $searchQuery);
+            $searchedBook = searchBook($searchQuery);
         }else if($_GET['action'] == 'search-owned'){
             $searchQuery = $_GET['search-owned'] ?? '';
             $isSearchingOwned = true;
