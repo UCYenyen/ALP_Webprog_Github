@@ -61,12 +61,6 @@
                 stagger: 0.2,
                 ease: "power3.out"
             });
-            tl.from(".card", {
-                opacity: 0,
-                duration: 0.5,
-                stagger: 0.1,
-                ease: "back.out(1.7)"
-            }, .2); // Start at the same time as the previous animation
         });
     </script>
     

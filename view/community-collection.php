@@ -20,11 +20,11 @@
         }
 
         if($_GET['action'] == 'search-trending'){
-            $searchQuery = $_GET['search-trending'] ?? '';
+            $searchQuery = $_GET['search-trending'];
             $isSearchingTrending = true;
             $searchedBook = searchBook($searchQuery);
         }else if($_GET['action'] == 'search-community'){
-            $searchQuery = $_GET['search-community'] ?? '';
+            $searchQuery = $_GET['search-community'];
             $isSearchingCommunity = true;
             $searchedBook = searchBook($searchQuery);
         }
@@ -70,7 +70,7 @@
                 duration: 0.5,
                 stagger: 0.1,
                 ease: "back.out(1.7)"
-            }, .2); // Start at the same time as the previous animation
+            }, "<");
         });
     </script>
 </head>

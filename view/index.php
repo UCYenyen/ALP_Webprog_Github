@@ -65,10 +65,10 @@
             opacity: 0,    
             x: 160,      
             ease: "back.out(1.7)"  
-        }).to(".title", { opacity: 1, duration: 0.1 }, "<").from(split.chars, {
-            duration: 1, 
+        }).to(".title", { opacity: 1, duration: 0.1 }, "<").to(split.chars, {
+            duration: 0.1, 
             opacity: 0,    
-            y: -50,         
+            x: 50,         
             stagger: 0.05, 
             ease: "back.out(1.7)"
         }, "<");
