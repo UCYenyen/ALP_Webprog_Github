@@ -156,8 +156,8 @@
                         $coverImage = $book['cover_image'];
                         $bookId = $book['id']; // Make sure to get the book ID
                 ?>
-                    <a href="?action=book-page&id=<?= $bookId ?>" class="card w-full h-full">
-                        <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
+                    <a href="?action=book-page&id=<?= $bookId ?>" class="card w-full h-full border-1 border-gray-200 rounded-lg">
+                        <img class="object-cover object-center w-full h-full rounded-lg" src="<?= $coverImage ?>">
                     </a>
                 <?php 
                     }
@@ -166,8 +166,8 @@
                         $coverImage = $book['cover_image'];
                         $bookId = $book['id'];
                 ?>
-                    <a href="?action=book-page&id=<?= $bookId ?>" class="card w-full h-full">
-                        <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
+                    <a href="?action=book-page&id=<?= $bookId ?>" class="card w-full h-full border-1 border-gray-200 rounded-lg">
+                        <img class="object-cover object-center w-full h-full rounded-lg" src="<?= $coverImage ?>">
                     </a>
                 <?php 
                     }
@@ -201,14 +201,22 @@
             </div>
             <!-- BOOKS -->
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-[20px] w-full">
+                <a href="add-book-form.php" class="card w-full h-full border-1 border-gray-200 rounded-lg">
+                    <div class="bg-[#DDE1E6]/75 w-full h-full flex flex-col items-center justify-center rounded-lg">
+                        <svg class='w-1/3 h-1/3 opacity-[75%]' width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4.34502 1.01717C7.4389 0.674616 10.5611 0.674616 13.655 1.01717C15.368 1.20917 16.75 2.55817 16.951 4.27717C17.3176 7.41516 17.3176 10.5852 16.951 13.7232C16.75 15.4422 15.368 16.7912 13.655 16.9832C10.5611 17.3257 7.4389 17.3257 4.34502 16.9832C2.63202 16.7912 1.25002 15.4422 1.04902 13.7232C0.682473 10.5855 0.682473 7.41583 1.04902 4.27817C1.15069 3.44304 1.5314 2.66671 2.12945 2.07501C2.7275 1.48331 3.50785 1.11091 4.34402 1.01817M9.00002 4.00717C9.19893 4.00717 9.3897 4.08619 9.53035 4.22684C9.671 4.36749 9.75002 4.55826 9.75002 4.75717V8.25017H13.243C13.4419 8.25017 13.6327 8.32919 13.7733 8.46984C13.914 8.61049 13.993 8.80126 13.993 9.00017C13.993 9.19908 13.914 9.38985 13.7733 9.5305C13.6327 9.67115 13.4419 9.75017 13.243 9.75017H9.75002V13.2432C9.75002 13.4421 9.671 13.6328 9.53035 13.7735C9.3897 13.9142 9.19893 13.9932 9.00002 13.9932C8.80111 13.9932 8.61034 13.9142 8.46969 13.7735C8.32904 13.6328 8.25002 13.4421 8.25002 13.2432V9.75017H4.75702C4.55811 9.75017 4.36734 9.67115 4.22669 9.5305C4.08604 9.38985 4.00702 9.19908 4.00702 9.00017C4.00702 8.80126 4.08604 8.61049 4.22669 8.46984C4.36734 8.32919 4.55811 8.25017 4.75702 8.25017H8.25002V4.75717C8.25002 4.55826 8.32904 4.36749 8.46969 4.22684C8.61034 4.08619 8.80111 4.00717 9.00002 4.00717Z" fill="#0071E3" fill-opacity="0.7"/>
+                        </svg>
+                        <h1 class="text-4xl font-bold text-[#0071E3] opacity-[50%] ">Add</h1>
+                    </div>
+                </a>
                 <?php 
                 if(!$isSearchingCommunity){
                     foreach($allBooks as $book){
                         $coverImage = $book['cover_image'];
                         $bookId = $book['id'];   
                 ?>
-                    <a href="?action=book-page&id=<?= $bookId ?>" class="card w-full h-full">
-                        <img class="object-cover object-left w-full h-full rounded-lg" src="<?= $coverImage ?>">
+                    <a href="?action=book-page&id=<?= $bookId ?>" class="card w-full h-full border-1 border-gray-200 rounded-lg">
+                        <img class="object-cover object-center w-full h-full rounded-lg" src="<?= $coverImage ?>">
                     </a>
                 <?php 
                     }
@@ -224,15 +232,6 @@
                         }
                     }
                 ?>
-            </div>
-            <!-- Navigation -->
-            <div class="flex justify-end w-full">
-                <a href="add-book-form.php" class="flex w-full sm:w-fit items-center justify-center sm:justify-end gap-2 bg-[#0071E3] text-white px-6 py-2 rounded-md">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.34502 4.01717C10.4389 3.67462 13.5611 3.67462 16.655 4.01717C18.368 4.20917 19.75 5.55817 19.951 7.27717C20.3176 10.4152 20.3176 13.5852 19.951 16.7232C19.75 18.4422 18.368 19.7912 16.655 19.9832C13.5611 20.3257 10.4389 20.3257 7.34502 19.9832C5.63202 19.7912 4.25002 18.4422 4.04902 16.7232C3.68247 13.5855 3.68247 10.4158 4.04902 7.27817C4.15069 6.44304 4.5314 5.66671 5.12945 5.07501C5.7275 4.48331 6.50785 4.11091 7.34402 4.01817M12 7.00717C12.1989 7.00717 12.3897 7.08619 12.5303 7.22684C12.671 7.36749 12.75 7.55826 12.75 7.75717V11.2502H16.243C16.4419 11.2502 16.6327 11.3292 16.7733 11.4698C16.914 11.6105 16.993 11.8013 16.993 12.0002C16.993 12.1991 16.914 12.3898 16.7733 12.5305C16.6327 12.6712 16.4419 12.7502 16.243 12.7502H12.75V16.2432C12.75 16.4421 12.671 16.6328 12.5303 16.7735C12.3897 16.9142 12.1989 16.9932 12 16.9932C11.8011 16.9932 11.6103 16.9142 11.4697 16.7735C11.329 16.6328 11.25 16.4421 11.25 16.2432V12.7502H7.75702C7.55811 12.7502 7.36734 12.6712 7.22669 12.5305C7.08604 12.3898 7.00702 12.1991 7.00702 12.0002C7.00702 11.8013 7.08604 11.6105 7.22669 11.4698C7.36734 11.3292 7.55811 11.2502 7.75702 11.2502H11.25V7.75717C11.25 7.55826 11.329 7.36749 11.4697 7.22684C11.6103 7.08619 11.8011 7.00717 12 7.00717Z" fill="white"/>
-                    </svg>
-                    Add
-                </a>
             </div>
         </div>
     </div>

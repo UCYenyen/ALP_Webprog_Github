@@ -8,13 +8,13 @@
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $title = $_POST['title'];
-        $author = $_POST['author'];
-        $genre = $_POST['genre'];
-        $year_published = $_POST['year_published'];
-        $description = $_POST['description'];
-        $link = $_POST['link'];
-        $cover = $_FILES['cover']['name'];
+        $title = htmlspecialchars($_POST['title']);
+        $author = htmlspecialchars($_POST['author']);
+        $genre = htmlspecialchars($_POST['genre']);
+        $year_published = htmlspecialchars($_POST['year_published']);
+        $description = htmlspecialchars($_POST['description']);
+        $link = htmlspecialchars($_POST['link']);
+        $cover = htmlspecialchars($_FILES['cover']['name']);
 
         addNewBook($title, $author, $genre, $year_published, $cover, $description, $link);
     }

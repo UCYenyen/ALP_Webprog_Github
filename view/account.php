@@ -21,16 +21,16 @@
         $profile_image = null;
 
         if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
-            $new_password = $_POST['new_password'];
+            $new_password = htmlspecialchars($_POST['new_password']);
         }
         
-        $password = $_POST['current_password'];
+        $password = htmlspecialchars($_POST['current_password']);
         $_SESSION['last_password'] = $password; // Store the last password for comparison
 
         
 
         if (isset($_FILES['profile_image'])) {
-            $profile_image = $_FILES['profile_image']['name'];
+            $profile_image = htmlspecialchars($_FILES['profile_image']['name']);
         }
 
         updateUser($_SESSION['user_id'], $password, $new_password, $profile_image);
@@ -69,8 +69,19 @@
             }, .2); // Start at the same time as the previous animation
         });
     </script>
+    
+    <script>
+    function makeBackgroundToFit(){
+        const body = document.getElementById('container');
+        <?php if(empty($allBooks)) { ?>
+        body.classList.add('h-screen');
+        <?php } else { ?>
+        body.classList.remove('h-screen');
+        <?php } ?>
+    }
+    </script>
 </head>
-<body class="">
+<body class="" onload='makeBackgroundToFit()'>
     <div id="mobile-navbar" class="z-100 hidden fixed flex justify-between flex-col w-screen h-screen bg-[#F3F7FA]/97 backdrop-blur-sm p-12">
         <div class="p-4">
             <div onclick='openMoibileNavbar()' class="flex justify-end w-full">

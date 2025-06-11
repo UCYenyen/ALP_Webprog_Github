@@ -8,6 +8,7 @@
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $_SESSION['loaded_animation'] = true;
         $username = $_POST['username'];
         $password = $_POST['password'];
         $loginResult = loginUser($username, $password);
@@ -34,6 +35,7 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"></script>
 
     <script>
+        <?php if (!isset($_SESSION['loaded_animation'])) { ?>
         document.addEventListener("DOMContentLoaded", function() {
         const tl = gsap.timeline();
         
@@ -78,16 +80,19 @@
             ease: "power3.out" 
         }, "-=0.3");
     });
+    <?php } ?>
     </script>
 </head>
 <body class="bg-gradient-to-b from-[#D4EAF5] to-[#F3F7FA] overflow-x-hidden">
     <div class="relative w-screen h-screen flex flex-col justify-center items-center">
-        <div class="absolute flex items-center gap-2 top-100">
+        <?php if (!isset($_SESSION['loaded_animation'])){ ?>
+        <div class="absolute flex items-center gap-2 top-[50vh]">
             <svg class="mt-2 logo text-black" xmlns="http://www.w3.org/2000/svg" width="25" height="25" class="bi bi-book-fill" viewBox="0 0 16 16">
                 <path d="M8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
             </svg>
             <h1 class="title text-[36px] font-bold">Bukuku</h1>
         </div>
+        <?php } ?>
         <form action="" method="POST" class="">
             <div class="background flex flex-col items-center gap-[30px] justify-center p-6 bg-[#FBFBFD] shadow-md rounded-lg sm:w-[500px]">
                 <h1 class="text-[36px] font-bold bg-gradient-to-r from-[#042740] to-[#5283AB] bg-clip-text text-transparent">Bukuku</h1>

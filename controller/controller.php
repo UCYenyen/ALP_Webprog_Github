@@ -241,6 +241,8 @@ function removeBook($user_id, $book_id){
     if($conn != null){
         $sql_query = "DELETE FROM personal_collections WHERE book_id = $book_id AND user_id = $user_id";
         mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+        $sql_query = "UPDATE books SET popularity_counter = popularity_counter - 1 WHERE id = $book_id";
+        mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
     }
     my_closeDB($conn);
     header("Location: personal-collection.php");
@@ -328,6 +330,8 @@ function getBook($book_id, $user_id) {
     $conn = my_ConnectDB();
     if($conn != null){
         $sql_query = "INSERT INTO personal_collections (book_id, user_id) VALUES ($book_id, $user_id)";
+        mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
+        $sql_query = "UPDATE books SET popularity_counter = popularity_counter + 1 WHERE id = $book_id";
         mysqli_query($conn, $sql_query) or die("Error: " . mysqli_error($conn));
     }
     my_closeDB($conn);
