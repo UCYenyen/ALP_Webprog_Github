@@ -154,7 +154,6 @@
                         placeholder="Search books..."
                         class="focus:outline-none w-full"
                         value="<?php echo isset($_GET['search-trending']) ? $_GET['search-trending'] : ''; ?>"
-                        oninput="this.value ? displaySearchedBook() : resetBookDisplay();"
                     >
                 </form>
             </div>
@@ -205,7 +204,6 @@
                         placeholder="Search books..."
                         class="focus:outline-none w-full"
                         value="<?php echo isset($_GET['search-community']) ? $_GET['search-community'] : ''; ?>"
-                        oninput="this.value ? displaySearchedBook() : resetBookDisplay();"
                     >
                 </form>
             </div>

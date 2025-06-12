@@ -164,7 +164,6 @@
                         placeholder="Search books..."
                         class="focus:outline-none w-full"
                         value="<?php echo isset($_GET['search-favorite']) ? $_GET['search-favorite'] : ''; ?>"
-                        oninput="this.value ? displaySearchedBook() : resetBookDisplay();"
                     >
                 </form>
             </div>
@@ -219,7 +218,6 @@
                         placeholder="Search books..."
                         class="focus:outline-none w-full"
                         value="<?php echo isset($_GET['search-owned']) ? $_GET['search-owned'] : ''; ?>"
-                        oninput="this.value ? displaySearchedBook() : resetBookDisplay();"
                     >
                 </form>
             </div>
