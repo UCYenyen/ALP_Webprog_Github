@@ -22,8 +22,5 @@ function previewImage(input) {
             preview.classList.remove('hidden');
         }
         reader.readAsDataURL(input.files[0]);
-    } else {
-        preview.src = "#";
-        preview.classList.add('hidden');
     }
 }
